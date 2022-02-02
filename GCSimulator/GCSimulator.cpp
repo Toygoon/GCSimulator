@@ -9,6 +9,7 @@
 #include <random>
 #include "Storage.h"
 #include "Random.h"
+#include "Write.h"
 using namespace std;
 
 int main(void) {
@@ -66,6 +67,10 @@ int main(void) {
 		}
 		else if (input.compare("random") == 0) {
 			writeRandom(&storage);
+		}
+		else if (input.compare("debug") == 0) {
+			// debug command here
+			writeText(&storage);
 		}
 		else {
 			cout << "Invalid command." << endl;

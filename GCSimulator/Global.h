@@ -13,6 +13,9 @@
 // The count of block in one storage.
 #define BLOCK_COUNT 20
 
+// The length of string in single block
+#define MAX_LENGTH 10
+
 // The limit of erasure per cell.
 #define MAX_ERASURE_LIMIT 1000
 

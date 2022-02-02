@@ -45,6 +45,9 @@
     <ClCompile Include="Random.cpp">
       <Filter>소스 파일\util</Filter>
     </ClCompile>
+    <ClCompile Include="Write.cpp">
+      <Filter>소스 파일\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -59,13 +62,13 @@
     <ClInclude Include="Page.h">
       <Filter>헤더 파일\flash</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Reader.h">
       <Filter>헤더 파일\util</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
+      <Filter>헤더 파일\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Write.h">
       <Filter>헤더 파일\util</Filter>
     </ClInclude>
   </ItemGroup>

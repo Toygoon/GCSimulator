@@ -145,6 +145,7 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Reader.cpp" />
     <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="Write.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
@@ -152,8 +153,8 @@
     <ClInclude Include="Page.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Reader.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Storage.h" />
+    <ClInclude Include="Write.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
