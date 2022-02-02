@@ -1,7 +1,4 @@
-#include <iostream>
 #include "Block.h"
-#include "Global.h"
-using namespace std;
 
 // Constructor to reset all values.
 Block::Block(void) {
@@ -26,6 +23,9 @@ int Block::setData(string data) {
 	// If the block is going to be disabled next time, make it disabled writing.
 	if (this->eraseCount >= MAX_ERASURE_LIMIT)
 		this->isDisabled = true;
+
+	// Increase the access time, the max of time is 1 sec.
+	accessTime += (1 / MAX_ERASURE_LIMIT) * 100;
 
 	// Return 0 if succeed with writing.
 	return 0;

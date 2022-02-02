@@ -27,12 +27,24 @@
     <ClCompile Include="Block.cpp">
       <Filter>소스 파일\flash</Filter>
     </ClCompile>
+    <ClCompile Include="Storage.cpp">
+      <Filter>소스 파일\flash</Filter>
+    </ClCompile>
+    <ClCompile Include="Page.cpp">
+      <Filter>소스 파일\flash</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
       <Filter>헤더 파일\flash</Filter>
     </ClInclude>
     <ClInclude Include="Global.h">
+      <Filter>헤더 파일\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="Storage.h">
+      <Filter>헤더 파일\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="Page.h">
       <Filter>헤더 파일\flash</Filter>
     </ClInclude>
   </ItemGroup>

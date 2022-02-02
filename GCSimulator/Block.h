@@ -1,7 +1,14 @@
+/* The Header for Simulation of Block
+ *
+ * @author Lim Jung Min,
+ * Department of Computer Engineering, Yeungnam University.
+ */
+
 #ifndef BLOCK
 #define BLOCK
 
 #include <iostream>
+#include "Global.h"
 using namespace std;
 
 class Block {
