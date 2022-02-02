@@ -22,6 +22,7 @@ Page::Page(int pageNum) {
 int Page::getPageNum(void) {
 	return this->pageNum;
 }
+
 Block Page::getBlock(int blockNum) {
 	if (blockNum >= BLOCK_COUNT)
 		throw out_of_range("Out of range.");

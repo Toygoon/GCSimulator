@@ -15,8 +15,9 @@ class Storage {
 private:
 	vector<Page*> pages;
 public:
-	Storage();
+	Storage(void);
 	Page* getPage(int);
+	void printStat(void);
 };
 
 #endif

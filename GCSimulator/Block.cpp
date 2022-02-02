@@ -25,6 +25,7 @@ int Block::setData(string data) {
 		return -1;
 
 	this->data = data;
+	eraseCount++;
 
 	// If the block is going to be disabled next time, make it disabled writing.
 	if (this->eraseCount >= MAX_ERASURE_LIMIT)

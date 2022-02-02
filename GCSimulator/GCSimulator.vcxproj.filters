@@ -19,6 +19,12 @@
     <Filter Include="헤더 파일\flash">
       <UniqueIdentifier>{4e377b14-a889-4866-9562-b193820c3b39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\util">
+      <UniqueIdentifier>{9da2e765-7829-489c-b8fa-a05c97c3f628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\util">
+      <UniqueIdentifier>{ed29814c-8d45-47a8-913d-60ddac50a38e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GCSimulator.cpp">
@@ -33,6 +39,12 @@
     <ClCompile Include="Page.cpp">
       <Filter>소스 파일\flash</Filter>
     </ClCompile>
+    <ClCompile Include="Reader.cpp">
+      <Filter>소스 파일\util</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>소스 파일\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -46,6 +58,15 @@
     </ClInclude>
     <ClInclude Include="Page.h">
       <Filter>헤더 파일\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Reader.h">
+      <Filter>헤더 파일\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>헤더 파일\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
