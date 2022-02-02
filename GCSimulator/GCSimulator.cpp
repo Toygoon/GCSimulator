@@ -30,7 +30,7 @@ int main(void) {
 		}
 		else if (input.compare("reset") == 0) {
 			// Free the memory status.
-			free(storage);
+			delete(storage);
 			// Initalize new storage pointer.
 			storage = new Storage();
 			cout << "Reset complete." << endl;
@@ -56,7 +56,7 @@ int main(void) {
 
 			if (0 <= page && page <= PAGE_COUNT && 0 <= block && block <= BLOCK_COUNT) {
 				cout << "Page " << page << ", Block " << block << " : "
-					<< storage->getPage(page)->getBlock(block).getData() << endl;
+					<< storage->getPage(page)->getPageBlock()[block].getData() << endl;
 			}
 			else {
 				cout << "Invalid indexes." << endl;
@@ -65,24 +65,13 @@ int main(void) {
 			cout << endl;
 		}
 		else if (input.compare("random") == 0) {
-
-			random_device rd;
-			mt19937_64 gen(rd());
-
-			uniform_int_distribution<int> dis(0, MAX_ERASURE_LIMIT);
-
-			for (int i = 0; i < PAGE_COUNT; i++) {
-				for (int j = 0; j < BLOCK_COUNT; j++) {
-					for (int k = 0; k < dis(gen); k++)
-						storage->getPage(i)->getBlock(j).setData("fafF");
-				}
-			}
+			writeRandom(&storage);
 		}
 		else {
 			cout << "Invalid command." << endl;
 		}
 	}
 
-	free(storage);
+	delete(storage);
 	return 0;
 }
