@@ -16,13 +16,12 @@ using namespace std;
 
 class Page {
 private :
-	int currentPage;
+	int pageNum;
 	vector<Block*> block;
 
 public:
-	Page(void);
-	void setCurrentPage(int);
-	int getCurrentPage(void);
+	Page(int);
+	int getPageNum(void);
 	vector<Block*> getPage(void);
 };
 
