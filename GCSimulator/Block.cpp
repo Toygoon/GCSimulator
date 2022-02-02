@@ -32,7 +32,8 @@ int Block::setData(string data) {
 		this->isDisabled = true;
 
 	// Increase the access time, the max of time is 1 sec.
-	accessTime += (1 / MAX_ERASURE_LIMIT) * 100;
+	double tmp = 1.0 / (double)MAX_ERASURE_LIMIT;
+	this->accessTime += tmp;
 
 	// Return 0 if succeed with writing.
 	return 0;
