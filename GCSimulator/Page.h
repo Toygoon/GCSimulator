@@ -15,14 +15,19 @@
 using namespace std;
 
 class Page {
-private :
+private:
+	/* Page simulation class
+	pageNum : indicates the current page number (it's just an id)
+	page : the array of blocks
+	*/
+
 	int pageNum;
-	vector<Block*> block;
+	Block* page;
 
 public:
 	Page(int);
 	int getPageNum(void);
-	vector<Block*> getPage(void);
+	Block getBlock(int);
 };
 
 #endif

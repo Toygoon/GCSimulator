@@ -13,6 +13,14 @@ using namespace std;
 
 class Block {
 private:
+	/* Block simulation class
+	blockNum : current index number of block
+	isDisabled : erase limit exceeded block
+	eraseCount : the count of erasures
+	accessTime : when data input, this value increases (1 / MAX_ERASURE_LIMIT) seconds.
+	data : the data block saves
+	*/
+
 	int blockNum;
 	int eraseCount;
 	bool isDisabled;
@@ -26,6 +34,7 @@ public:
 	int getBlockNum(void);
 	int getEraseCount(void);
 	string getData(void);
+	double getAccessTime(void);
 	bool isDisabledBlock(void);
 };
 

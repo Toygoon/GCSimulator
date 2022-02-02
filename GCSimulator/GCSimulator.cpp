@@ -1,15 +1,17 @@
 ﻿#include <iostream>
-#include "Page.h"
+#include "Storage.h"
 using namespace std;
 
 int main(void) {
-	Page* p = new Page(0);
-	vector<Block*> one = p->getPage();
-
-	for (int i = 0; i < BLOCKS_PER_PAGE; i++) {
-		cout << one.at(i)->getData() << endl;
+	Page* page = new Page(0);
+	for (int i = 0; i < PAGE_COUNT; i++) {
+		cout << page->getBlock(i).getData() << endl;
 	}
 
-
+	Storage* storage = new Storage();
+	for (int i = 0; i < PAGE_COUNT; i++) {
+		for (int j = 0; j < BLOCK_COUNT; j++)
+			cout << storage->getPage(i)->getBlock(j).getData() << endl;
+	}
 	return 0;
 }

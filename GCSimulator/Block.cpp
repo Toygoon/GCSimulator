@@ -1,3 +1,9 @@
+/* The Simulation of Block
+ *
+ * @author Lim Jung Min,
+ * Department of Computer Engineering, Yeungnam University.
+ */
+
 #include "Block.h"
 
 // Constructor to reset all values.
@@ -41,6 +47,10 @@ int Block::getEraseCount(void) {
 
 string Block::getData(void) {
 	return this->data;
+}
+
+double Block::getAccessTime(void) {
+	return this->accessTime;
 }
 
 bool Block::isDisabledBlock(void) {

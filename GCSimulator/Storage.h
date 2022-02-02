@@ -8,16 +8,15 @@
 #define STORAGE
 
 #include <iostream>
-#include <vector>
-#include "Block.h"
+#include "Page.h"
 using namespace std;
 
 class Storage {
 private:
-
+	vector<Page*> pages;
 public:
-	vector<vector<Block>> table;
 	Storage();
+	Page* getPage(int);
 };
 
 #endif
