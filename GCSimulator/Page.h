@@ -27,7 +27,7 @@ private:
 public:
 	Page(int);
 	int getPageNum(void);
-	Block getBlock(int);
+	Block* getPageBlock(void);
 };
 
 #endif
