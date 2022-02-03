@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include "Global.h"
+#include "BlockStatus.h"
 using namespace std;
 
 class Block {
@@ -19,18 +20,20 @@ private:
 	eraseCount : the count of erasures
 	accessTime : when data input, this value increases (1 / MAX_ERASURE_LIMIT) seconds.
 	data : the data block saves
+	blockStatus : block valid, invalid, free status
 	*/
-
 	int blockNum;
 	int eraseCount;
 	bool isDisabled;
 	double accessTime;
 	string data;
+	BlockStatus blockStatus;
 
 public:
 	Block();
 	void setBlockNum(int);
 	int setData(string);
+	void setBlockStatus(BlockStatus);
 	int getBlockNum(void);
 	int getEraseCount(void);
 	string getData(void);

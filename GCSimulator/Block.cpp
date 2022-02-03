@@ -13,6 +13,7 @@ Block::Block(void) {
 	this->isDisabled = false;
 	this->accessTime = 0.0;
 	this->data = "";
+	this->blockStatus = BLOCK_FREE;
 }
 
 void Block::setBlockNum(int blockNum) {
@@ -37,6 +38,10 @@ int Block::setData(string data) {
 
 	// Return 0 if succeed with writing.
 	return 0;
+}
+
+void Block::setBlockStatus(BlockStatus blockStatus) {
+	this->blockStatus = blockStatus;
 }
 
 int Block::getBlockNum(void) {
