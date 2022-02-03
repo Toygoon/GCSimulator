@@ -38,6 +38,7 @@ public:
 	int getEraseCount(void);
 	string getData(void);
 	double getAccessTime(void);
+	BlockStatus getBlockStatus(void);
 	bool isDisabledBlock(void);
 };
 

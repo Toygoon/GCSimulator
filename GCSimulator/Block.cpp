@@ -60,6 +60,10 @@ double Block::getAccessTime(void) {
 	return this->accessTime;
 }
 
+BlockStatus Block::getBlockStatus(void) {
+	return this->blockStatus;
+}
+
 bool Block::isDisabledBlock(void) {
 	return this->isDisabled;
 }
