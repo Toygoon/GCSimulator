@@ -13,13 +13,21 @@ Page::Page(int pageNum) {
 	this->pageNum = pageNum;
 
 	for (int i = 0; i < BLOCK_COUNT; i++)
-		page[i].setBlockNum(i);
+		this->page[i].setBlockNum(i);
 }
 
 int Page::getPageNum(void) {
 	return this->pageNum;
 }
 
-Block* Page::getPageBlock() {
+Block* Page::getPageBlock(void) {
 	return this->page;
+}
+
+bool Page::hasInvalidBlock(void) {
+	for (int i = 0; i < BLOCK_COUNT; i++)
+		if (this->page[i].getBlockStatus() == BlockStatus::BLOCK_INVALID)
+			return true;
+
+	return false;
 }

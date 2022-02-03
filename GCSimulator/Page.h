@@ -28,6 +28,7 @@ public:
 	Page(int);
 	int getPageNum(void);
 	Block* getPageBlock(void);
+	bool hasInvalidBlock(void);
 };
 
 #endif
