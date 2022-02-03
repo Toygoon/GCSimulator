@@ -10,8 +10,9 @@
 #include "Storage.h"
 using namespace std;
 
-inline char separator();
-string readText();
+inline char separator(void);
+string readText(void);
+string getString(string, int);
 void writeText(Storage**);
 
 #endif
