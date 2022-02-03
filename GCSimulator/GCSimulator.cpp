@@ -19,7 +19,7 @@ int main(void) {
 	string input = "", p = "", b = "";
 	int page = -1, block = -1;
 
-	cout << "Operations : status, read, write, reset, exit" << endl
+	cout << "Operations : status, read, write, reset, format, exit" << endl
 		<< "Algorithms : None" << endl;
 
 	while (true) {
@@ -66,24 +66,30 @@ int main(void) {
 			cout << endl;
 		}
 		else if (input.compare("write") == 0) {
+			/* range[0] : begin page
+			range[1] : end page */
+			int* range = new int[2];
+
+			// Input sequence.
+			cout << endl << "Input range of page (begin end). Last page num : " << PAGE_COUNT - 1 << endl
+				<< "Range >>> ";
+			cin >> range[0] >> range[1];
+
 			// Write data to cell.
 			int times, max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText().length()
-				/ (BLOCK_COUNT * PAGE_COUNT * MAX_LENGTH)));
-			// Calculate max times of writing.
+				/ ((range[1] - range[0]) * BLOCK_COUNT * MAX_LENGTH)));
 
+			// Calculate max times of writing.
 			cout << "How many times do you want to write? (Max : " << max << ")" << endl
 				<< "Times >>> ";
 			cin >> times;
 
-			if (times > max) {
-				cout << "Invalid input." << endl;
-			}
-			else {
-				// Write times
-				for (int i=0; i<times; i++)
-					writeText(&storage);
-			}
+			// Write text
+			writeText(&storage, times, range);
 
+		}
+		else if (input.compare("debug") == 0) {
+			storage->calcTimes();
 		}
 		else {
 			cout << "Invalid command." << endl;

@@ -13,6 +13,6 @@ using namespace std;
 inline char separator(void);
 string readText(void);
 string getString(string, int);
-void writeText(Storage**);
+void writeText(Storage**, int, int*);
 
 #endif

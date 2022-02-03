@@ -8,10 +8,10 @@
 #define GLOBAL
 
 // The count of block per page.
-#define PAGE_COUNT 5
+#define PAGE_COUNT 10
 
 // The count of block in one storage.
-#define BLOCK_COUNT 20
+#define BLOCK_COUNT 5
 
 // The length of string in single block
 #define MAX_LENGTH 10

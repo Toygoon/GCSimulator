@@ -12,11 +12,8 @@ Page::Page(int pageNum) {
 	// Set a page number.
 	this->pageNum = pageNum;
 
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < BLOCK_COUNT; i++)
 		page[i].setBlockNum(i);
-		// It's just an initial data.
-		//page[i].setData(to_string(pageNum) + "p " + to_string(i) + "b");
-	}
 }
 
 int Page::getPageNum(void) {

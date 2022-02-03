@@ -19,7 +19,9 @@ private:
 public:
 	Storage(void);
 	Page* getPage(int);
+	double* calcTimes(void);
 	void printStat(void);
+	void formatData(void);
 };
 
 #endif
