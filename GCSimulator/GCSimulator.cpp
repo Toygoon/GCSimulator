@@ -21,7 +21,7 @@ int main(void) {
 	int page = -1, block = -1;
 
 	cout << "Operations : status, read, write, reset, format, exit" << endl
-		<< "Garbage Collectors : None" << endl;
+		<< "Garbage Collectors : greedy" << endl;
 
 	while (true) {
 		cout << ">>> ";
@@ -35,7 +35,7 @@ int main(void) {
 			delete(storage);
 			// Initalize new storage pointer.
 			storage = new Storage();
-			cout << "Reset complete." << endl;
+			cout << "Reset complete." << endl << endl;
 		}
 		else if (input.compare("status") == 0) {
 			// Status command shows simple status of the flash storage.
@@ -89,8 +89,9 @@ int main(void) {
 			writeText(&storage, times, range);
 
 		}
-		else if (input.compare("debug") == 0) {
-			getVictim(storage);
+		else if (input.compare("greedy") == 0) {
+			Greedy* g = new Greedy();
+			g->greedyMain(&storage);
 		}
 		else {
 			cout << "Invalid command." << endl;

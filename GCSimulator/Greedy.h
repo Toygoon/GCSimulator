@@ -15,13 +15,18 @@ using namespace std;
 
 class Greedy {
 private:
-	unordered_map<int, int> victimMap;
-	vector<Page*> victimPages;
+	// How many victims in this section.
+	int victimCounts;
+	// The page number that all blocks are free status.
+	vector<int> freeSpace;
+	// Percentage of invalid blocks per each page.
+	// index : page number
 	double* invalids;
 public:
 	Greedy();
 	void calcVictim(Storage*);
+	void calcFreeSpace(Storage*);
+	void greedyMain(Storage**);
 };
-
 
 #endif
