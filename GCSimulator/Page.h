@@ -20,7 +20,6 @@ private:
 	pageNum : indicates the current page number (it's just an id)
 	page : the array of blocks
 	*/
-
 	int pageNum;
 	Block* page;
 

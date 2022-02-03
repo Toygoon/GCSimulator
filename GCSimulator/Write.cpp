@@ -42,14 +42,21 @@ string getString(string s, int a) {
 }
 
 void writeText(Storage** s, int times, int* range) {
+	// Valid status check
+	for (int i = range[0]; i <= range[1]; i++) {
+		if ((*s)->getPage(i)->hasInvalidBlock()) {
+			cout << "Page " << i << " has an invalid block. Do the gc first." << endl;
+			return;
+		}
+	}
+
 	// Read data.
 	string data = "";
 
 	// Make text many times.
 	const string readData = readText();
-	for (int i = 0; i < times; i++) {
+	for (int i = 0; i < times; i++)
 		data += readData;
-	}
 
 	// Recalculate page counts.
 	const int page_count = range[1] - range[0];
@@ -61,8 +68,12 @@ void writeText(Storage** s, int times, int* range) {
 		string tmp = getString(data, currentPos);
 
 		// Set a data.
-		(*s)->getPage(currentPage)->getPageBlock()[currentBlock].setData(tmp);
+		int res = (*s)->getPage(currentPage)->getPageBlock()[currentBlock].setData(tmp);
 
+		if (res == -1) {
+			cout << "Failed to write data, canceled. " << currentPage << "p, " << currentBlock << "b." << endl;
+			return;
+		}
 		currentBlock++;
 		currentPos += MAX_LENGTH;
 
@@ -77,7 +88,7 @@ void writeText(Storage** s, int times, int* range) {
 		};
 	}
 
-	cout << currentPage << "p, " << currentBlock << "b" << endl;
+	cout << "Writing done at " << currentPage << "p, " << currentBlock << "b." << endl << endl;
 
 	// Make another block invalid
 	for (int i = currentBlock + 1; i < BLOCK_COUNT; i++)
@@ -90,7 +101,4 @@ void writeText(Storage** s, int times, int* range) {
 			}
 		}
 	}
-
-	//cout << "Writing ended with " << currentPage << "p, " << currentBlock << "b." << endl;
-	
 }

@@ -20,7 +20,7 @@ int main(void) {
 	int page = -1, block = -1;
 
 	cout << "Operations : status, read, write, reset, format, exit" << endl
-		<< "Algorithms : None" << endl;
+		<< "Garbage Collectors : None" << endl;
 
 	while (true) {
 		cout << ">>> ";
