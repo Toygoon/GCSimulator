@@ -29,7 +29,7 @@ void Storage::printStat(void) {
 		for (int j = 0; j < BLOCK_COUNT; j++) {
 			// setw(2) is same as printf("%2d");
 			cout << "[BLCK] " << setw(to_string(PAGE_COUNT).length()) << i << "p " << setw(to_string(BLOCK_COUNT).length()) << j << "b, "
-				<< "ec : " << this->getPage(i)->getPageBlock()[j].getEraseCount()
+				<< "ec : " << setw(to_string(MAX_ERASURE_LIMIT).length()) << this->getPage(i)->getPageBlock()[j].getEraseCount()
 				<< ", " << setw(getBlockStatusString(BlockStatus::BLOCK_INVALID).length()) << getBlockStatusString(this->getPage(i)->getPageBlock()[j].getBlockStatus())
 				<< ", Data : " << this->getPage(i)->getPageBlock()[j].getData() << endl;
 		}
