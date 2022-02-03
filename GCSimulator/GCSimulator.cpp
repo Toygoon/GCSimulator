@@ -68,7 +68,7 @@ int main(void) {
 		else if (input.compare("random") == 0) {
 			writeRandom(&storage);
 		}
-		else if (input.compare("debug") == 0) {
+		else if (input.compare("write") == 0) {
 			// debug command here
 			writeText(&storage);
 		}

@@ -8,7 +8,9 @@
 #define STORAGE
 
 #include <iostream>
+#include <iomanip>
 #include "Page.h"
+#include "BlockStatus.h"
 using namespace std;
 
 class Storage {

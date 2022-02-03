@@ -15,7 +15,7 @@ Page::Page(int pageNum) {
 	for (int i = 0; i < BLOCK_COUNT; i++) {
 		page[i].setBlockNum(i);
 		// It's just an initial data.
-		page[i].setData(to_string(pageNum) + " Page, " + to_string(i) + " Block Data.");
+		//page[i].setData(to_string(pageNum) + "p " + to_string(i) + "b");
 	}
 }
 

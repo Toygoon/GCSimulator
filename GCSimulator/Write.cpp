@@ -26,10 +26,12 @@ string readText(void) {
 		exit(EXIT_FAILURE);
 	}
 
+	// Return data.txt to string
 	return string(istreambuf_iterator<char>(input_file), istreambuf_iterator<char>());
 }
 
 string getString(string s, int a) {
+	// Make 'a + 10' indexes of string.
 	char buffer[11];
 
 	for (int i = 0; i<MAX_LENGTH; i++)
@@ -47,16 +49,36 @@ void writeText(Storage** s) {
 	// Write data into the cell separately.
 	while (currentPos + MAX_LENGTH <= data.length()) {
 		string tmp = getString(data, currentPos);
-		if (currentPage == PAGE_COUNT)
-			currentPage = 0;
-		if (currentBlock == BLOCK_COUNT)
-			currentBlock = 0;
 
-		//cout << currentPage << "p, " << currentBlock << "b, " << tmp << endl;
-		cout << tmp  << endl;
+		// It works like the circular queue.
+		if (currentPage == PAGE_COUNT) {
+			currentPage = 0;
+			currentBlock = 0;
+		}
+		// When block count exceeds the limits, increase the current page number.
+		if (currentBlock == BLOCK_COUNT) {
+			currentBlock = 0;
+			currentPage++;
+		};
+
+		// Set a data.
 		(*s)->getPage(currentPage)->getPageBlock()[currentBlock].setData(tmp);
-		currentPage++;
 		currentBlock++;
 		currentPos += MAX_LENGTH;
 	}
+
+	// Make another block invalid
+	for (int i = currentBlock + 1; i < BLOCK_COUNT; i++)
+		(*s)->getPage(currentPage)->getPageBlock()[i].setBlockStatus(BlockStatus::BLOCK_INVALID);
+
+	if (currentPage + 1 < PAGE_COUNT) {
+		for (int i = currentPage + 1; i < PAGE_COUNT; i++) {
+			for (int j = 0; j < BLOCK_COUNT; j++) {
+				(*s)->getPage(i)->getPageBlock()[j].setBlockStatus(BlockStatus::BLOCK_INVALID);
+			}
+		}
+	}
+
+	cout << "Writing ended with " << currentPage << "p, " << currentBlock << "b." << endl;
+	
 }

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BlockStatus.cpp" />
     <ClCompile Include="GCSimulator.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="BlockStatus.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="Random.h" />

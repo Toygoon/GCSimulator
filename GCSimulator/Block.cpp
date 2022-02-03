@@ -13,7 +13,7 @@ Block::Block(void) {
 	this->isDisabled = false;
 	this->accessTime = 0.0;
 	this->data = "";
-	this->blockStatus = BLOCK_FREE;
+	this->blockStatus = BlockStatus::BLOCK_FREE;
 }
 
 void Block::setBlockNum(int blockNum) {
@@ -35,6 +35,9 @@ int Block::setData(string data) {
 	// Increase the access time, the max of time is 1 sec.
 	double tmp = 1.0 / (double)MAX_ERASURE_LIMIT;
 	this->accessTime += tmp;
+
+	// Set block as valid
+	this->blockStatus = BlockStatus::BLOCK_VALID;
 
 	// Return 0 if succeed with writing.
 	return 0;

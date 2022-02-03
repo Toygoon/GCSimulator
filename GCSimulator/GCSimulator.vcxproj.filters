@@ -48,6 +48,9 @@
     <ClCompile Include="Write.cpp">
       <Filter>소스 파일\util</Filter>
     </ClCompile>
+    <ClCompile Include="BlockStatus.cpp">
+      <Filter>소스 파일\flash</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="Write.h">
       <Filter>헤더 파일\util</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockStatus.h">
+      <Filter>헤더 파일\flash</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
