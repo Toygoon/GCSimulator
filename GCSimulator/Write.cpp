@@ -79,6 +79,6 @@ void writeText(Storage** s) {
 		}
 	}
 
-	cout << "Writing ended with " << currentPage << "p, " << currentBlock << "b." << endl;
+	//cout << "Writing ended with " << currentPage << "p, " << currentBlock << "b." << endl;
 	
 }

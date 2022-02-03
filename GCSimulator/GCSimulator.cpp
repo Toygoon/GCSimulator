@@ -19,7 +19,7 @@ int main(void) {
 	string input = "", p = "", b = "";
 	int page = -1, block = -1;
 
-	cout << "Operations : status, read, random, write, reset, exit" << endl
+	cout << "Operations : status, read, write, reset, exit" << endl
 		<< "Algorithms : None" << endl;
 
 	while (true) {
@@ -65,12 +65,25 @@ int main(void) {
 
 			cout << endl;
 		}
-		else if (input.compare("random") == 0) {
-			writeRandom(&storage);
-		}
 		else if (input.compare("write") == 0) {
-			// debug command here
-			writeText(&storage);
+			// Write data to cell.
+			int times, max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText().length()
+				/ (BLOCK_COUNT * PAGE_COUNT * MAX_LENGTH)));
+			// Calculate max times of writing.
+
+			cout << "How many times do you want to write? (Max : " << max << ")" << endl
+				<< "Times >>> ";
+			cin >> times;
+
+			if (times > max) {
+				cout << "Invalid input." << endl;
+			}
+			else {
+				// Write times
+				for (int i=0; i<times; i++)
+					writeText(&storage);
+			}
+
 		}
 		else {
 			cout << "Invalid command." << endl;
