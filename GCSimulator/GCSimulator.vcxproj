@@ -113,7 +113,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -142,6 +142,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockStatus.cpp" />
     <ClCompile Include="GCSimulator.cpp" />
+    <ClCompile Include="Greedy.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Reader.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockStatus.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Greedy.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Reader.h" />

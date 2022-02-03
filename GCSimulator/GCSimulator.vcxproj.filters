@@ -25,6 +25,12 @@
     <Filter Include="헤더 파일\util">
       <UniqueIdentifier>{ed29814c-8d45-47a8-913d-60ddac50a38e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\gc">
+      <UniqueIdentifier>{99cd8621-94e4-4b5b-83d9-7c29e1ab225b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\gc">
+      <UniqueIdentifier>{8a7a4f67-398e-4798-9d2b-4fbf752254fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GCSimulator.cpp">
@@ -51,6 +57,9 @@
     <ClCompile Include="BlockStatus.cpp">
       <Filter>소스 파일\flash</Filter>
     </ClCompile>
+    <ClCompile Include="Greedy.cpp">
+      <Filter>소스 파일\gc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -76,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="BlockStatus.h">
       <Filter>헤더 파일\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="Greedy.h">
+      <Filter>헤더 파일\gc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

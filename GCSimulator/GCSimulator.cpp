@@ -10,6 +10,7 @@
 #include "Storage.h"
 #include "Random.h"
 #include "Write.h"
+#include "Greedy.h"
 using namespace std;
 
 int main(void) {
@@ -89,7 +90,7 @@ int main(void) {
 
 		}
 		else if (input.compare("debug") == 0) {
-			storage->calcTimes();
+			getVictim(storage);
 		}
 		else {
 			cout << "Invalid command." << endl;

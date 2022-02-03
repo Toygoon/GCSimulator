@@ -1,3 +1,9 @@
+/* The File Writing Header of Simulation for Flash Storage
+ *
+ * @author Lim Jung Min,
+ * Department of Computer Engineering, Yeungnam University.
+ */
+
 #ifndef WRITE
 #define WRITE
 

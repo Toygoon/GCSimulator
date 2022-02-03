@@ -1,3 +1,9 @@
+/* The File Writing Simulation for Flash Storage
+ *
+ * @author Lim Jung Min,
+ * Department of Computer Engineering, Yeungnam University.
+ */
+
 #include "Write.h"
 
 inline char separator(void) {
