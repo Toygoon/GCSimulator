@@ -6,7 +6,7 @@
 
 #include "Block.h"
 
-// Constructor to reset all values.
+// Constructor to reset all values
 Block::Block(void) {
 	this->blockNum = -1;
 	this->eraseCount = 0;
@@ -21,25 +21,25 @@ void Block::setBlockNum(int blockNum) {
 }
 
 int Block::setData(string data) {
-	// Return -1 if attempt to write into the disabled block.
+	// Return -1 if attempt to write into the disabled block
 	if (this->isDisabledBlock())
 		return -1;
 
 	this->data = data;
 	eraseCount++;
 
-	// If the block is going to be disabled next time, make it disabled writing.
+	// If the block is going to be disabled next time, make it disabled writing
 	if (this->eraseCount >= MAX_ERASURE_LIMIT)
 		this->isDisabled = true;
 
-	// Increase the access time, the max of time is 1 sec.
+	// Increase the access time, the max of time is 1 sec
 	double tmp = 1.0 / (double)MAX_ERASURE_LIMIT;
 	this->accessTime += tmp;
 
 	// Set block as valid
 	this->blockStatus = BlockStatus::BLOCK_VALID;
 
-	// Return 0 if succeed with writing.
+	// Return 0 if succeed with writing
 	return 0;
 }
 

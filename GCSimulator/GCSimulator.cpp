@@ -31,19 +31,19 @@ int main(void) {
 			return 0;
 		}
 		else if (input.compare("reset") == 0) {
-			// Free the memory status.
+			// Free the memory status
 			delete(storage);
-			// Initalize new storage pointer.
+			// Initalize new storage pointer
 			storage = new Storage();
 			cout << "Reset complete." << endl << endl;
 		}
 		else if (input.compare("status") == 0) {
-			// Status command shows simple status of the flash storage.
+			// Status command shows simple status of the flash storage
 			storage->printStat();
 			cout << endl;
 		}
 		else if (input.compare("read") == 0) {
-			// Read command reads data from a single block from the single page and shows it.
+			// Read command reads data from a single block from the single page and shows it
 			cout << "Input (Page Block) : ";
 			cin >> p >> b;
 
@@ -71,16 +71,16 @@ int main(void) {
 			range[1] : end page */
 			int* range = new int[2];
 
-			// Input sequence.
+			// Input sequence
 			cout << endl << "Input range of page (begin end). Last page num : " << PAGE_COUNT - 1 << endl
 				<< "Range >>> ";
 			cin >> range[0] >> range[1];
 
-			// Write data to cell.
+			// Write data to cell
 			int times, max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText().length()
 				/ ((range[1] - range[0]) * BLOCK_COUNT * MAX_LENGTH)));
 
-			// Calculate max times of writing.
+			// Calculate max times of writing
 			cout << "How many times do you want to write? (Max : " << max << ")" << endl
 				<< "Times >>> ";
 			cin >> times;

@@ -16,7 +16,7 @@ Page* Storage::getPage(int pageNum) {
 }
 
 double* Storage::calcTimes(void) {
-	// Create average tables.
+	// Create average tables
 	double* times= new double[PAGE_COUNT];
 
 	for (int i = 0; i < PAGE_COUNT; i++) {
@@ -34,21 +34,28 @@ void Storage::printStat(void) {
 	double currentAvg = 0;
 	for (int i = 0; i < PAGE_COUNT; i++) {
 		currentAvg = 0;
-		// Set fixed numbers.
+		// Set fixed numbers
 		cout.precision(4);
 		
 		for (int j = 0; j < BLOCK_COUNT; j++) {
 			// setw(2) is same as printf("%2d");
-			cout << "[BLCK] " << setw(to_string(PAGE_COUNT).length()) << i << "p " << setw(to_string(BLOCK_COUNT).length()) << j << "b, "
+			cout << "[BLCK] "
+				// prints current page
+				<< setw(to_string(PAGE_COUNT).length()) << i << "p " 
+				// prints current block
+				<< setw(to_string(BLOCK_COUNT).length()) << j << "b, "
+				// prints current erase count
 				<< "ec : " << setw(to_string(MAX_ERASURE_LIMIT).length()) << this->getPage(i)->getPageBlock()[j].getEraseCount()
+				// prints current block status
 				<< ", " << setw(getBlockStatusString(BlockStatus::BLOCK_INVALID).length()) << getBlockStatusString(this->getPage(i)->getPageBlock()[j].getBlockStatus())
+				// prints current data
 				<< ", Data : " << this->getPage(i)->getPageBlock()[j].getData() << endl;
 		}
 	}
 }
 
 void Storage::formatData(void) {
-	// Just deletes all data, and make all cells free.
+	// Just deletes all data, and make all cells free
 	for (int i = 0; i < PAGE_COUNT; i++) {
 		for (int j = 0; j < BLOCK_COUNT; j++) {
 			this->getPage(i)->getPageBlock()[j].setData("");

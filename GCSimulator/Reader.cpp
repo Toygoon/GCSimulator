@@ -4,7 +4,7 @@ int readData(Storage* s, bool isPage) {
 	int index;
 	string input;
 
-	// Read command reads data from a single block from the single page and shows it.
+	// Read command reads data from a single block from the single page and shows it
 	string info = "What ";
 	if (isPage) {
 		info += "page do you want to read ? (Total ";

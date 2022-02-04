@@ -7,7 +7,7 @@
 #include "Write.h"
 
 inline char separator(void) {
-	// Returns file separator.
+	// Returns file separator
 	
 	#ifdef _WIN32
 		return '\\';
@@ -17,7 +17,7 @@ inline char separator(void) {
 }
 
 string readText(void) {
-	// Get current path.
+	// Get current path
 	char tmp[256];
 	_getcwd(tmp, 256);
 
@@ -37,7 +37,7 @@ string readText(void) {
 }
 
 string getString(string s, int a) {
-	// Make 'a + 10' indexes of string.
+	// Make 'a + 10' indexes of string
 	char buffer[11];
 
 	for (int i = 0; i<MAX_LENGTH; i++)
@@ -56,24 +56,24 @@ void writeText(Storage** s, int times, int* range) {
 		}
 	}
 
-	// Read data.
+	// Read data
 	string data = "";
 
-	// Make text many times.
+	// Make text many times
 	const string readData = readText();
 	for (int i = 0; i < times; i++)
 		data += readData;
 
-	// Recalculate page counts.
+	// Recalculate page counts
 	const int page_count = range[1] - range[0];
 
 	int totalBlocks = page_count * BLOCK_COUNT, totalTimes = data.length() / totalBlocks, currentPos = 0, currentPage = range[0], currentBlock = 0;
 
-	// Write data into the cell separately.
+	// Write data into the cell separately
 	while (currentPos + MAX_LENGTH <= data.length()) {
 		string tmp = getString(data, currentPos);
 
-		// Set a data.
+		// Set a data
 		int res = (*s)->getPage(currentPage)->getPageBlock()[currentBlock].setData(tmp);
 
 		if (res == -1) {
@@ -83,8 +83,8 @@ void writeText(Storage** s, int times, int* range) {
 		currentBlock++;
 		currentPos += MAX_LENGTH;
 
-		// It works like the circular queue.
-		// When block count exceeds the limits, increase the current page number.
+		// It works like the circular queue
+		// When block count exceeds the limits, increase the current page number
 		if (currentBlock == BLOCK_COUNT) {
 			currentBlock = 0;
 			currentPage++;

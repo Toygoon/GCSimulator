@@ -15,11 +15,11 @@ using namespace std;
 
 class Greedy {
 private:
-	// How many victims in this section.
+	// How many victims in this section
 	int victimCounts;
-	// The page number that all blocks are free status.
+	// The page number that all blocks are free status
 	vector<int> freeSpace;
-	// Percentage of invalid blocks per each page.
+	// Percentage of invalid blocks per each page
 	// index : page number
 	double* invalids;
 public:

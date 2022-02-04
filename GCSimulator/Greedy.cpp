@@ -8,7 +8,7 @@
 #include "Greedy.h"
 
 Greedy::Greedy() {
-	// Constructors to initalize values.
+	// Constructors to initalize values
 	this->victimCounts = 0;
 	this->invalids = new double[PAGE_COUNT];
 	for (int i = 0; i < PAGE_COUNT; i++)
@@ -30,7 +30,7 @@ void Greedy::calcVictim(Storage* s) {
 }
 
 void Greedy::calcFreeSpace(Storage* s) {
-	// Tempoary buffer for saving free status of flash storage.
+	// Tempoary buffer for saving free status of flash storage
 	double* buffer = new double[BLOCK_COUNT];
 
 	for (int i = 0; i < PAGE_COUNT; i++) {
@@ -58,6 +58,6 @@ void Greedy::greedyMain(Storage** s) {
 	// 1 : all blocks are invalid, so just delete
 	// 0.x : needs to work gc.
 	for (int i = 0; i < PAGE_COUNT; i++) {
-		// todo here
+		
 	}
 }
