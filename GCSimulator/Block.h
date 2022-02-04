@@ -40,6 +40,7 @@ public:
 	double getAccessTime(void);
 	BlockStatus getBlockStatus(void);
 	bool isDisabledBlock(void);
+	void formatBlock(void);
 };
 
 #endif

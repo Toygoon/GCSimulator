@@ -26,6 +26,10 @@ double* Storage::calcTimes(void) {
 	return 0;
 }
 
+void Storage::setPage(int pageNum, Page* p) {
+	memcpy(this->pages[pageNum], p, sizeof(Page));
+}
+
 void Storage::printStat(void) {
 	cout << "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl
 		<< "[STAT] Total pages : " << PAGE_COUNT << endl
@@ -54,11 +58,15 @@ void Storage::printStat(void) {
 	}
 }
 
-void Storage::formatData(void) {
-	// Just deletes all data, and make all cells free
-	for (int i = 0; i < PAGE_COUNT; i++) {
-		for (int j = 0; j < BLOCK_COUNT; j++) {
-			this->getPage(i)->getPageBlock()[j].setData("");
-		}
+void Storage::formatData(int start, int end) {
+	if (start > PAGE_COUNT || end > PAGE_COUNT || start < 0 || end < 0) {
+		cout << "Parameter error; formatData(" << start << ", " << end << ")" << endl;
+		return;
 	}
+
+	// The page of start <= _RANGE_ <= end will be deleted
+	// Just deletes all data, and make all cells free
+	for (int i = start; i <= end; i++)
+		for (int j = 0; j < BLOCK_COUNT; j++)
+			this->getPage(i)->getPageBlock()[j].formatBlock();
 }

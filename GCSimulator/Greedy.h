@@ -9,24 +9,38 @@
 
 #include <iostream>
 #include <vector>
-#include <unordered_map>
+#include <tuple>
 #include "Storage.h"
 using namespace std;
 
 class Greedy {
 private:
-	// How many victims in this section
-	int victimCounts;
 	// The page number that all blocks are free status
-	vector<int> freeSpace;
+	// vector's tuple structure : <pageNum, total eraseCount>
+	// To sort the eraseCount, the data will be saved into tuple structure
+	vector<pair<int, int>> freePages;
+
 	// Percentage of invalid blocks per each page
-	// index : page number
-	double* invalids;
+	// vector's tuple structure : <pageNum, invalid percentage>
+	// To sort the percentage, the data will be saved into tuple structure
+	vector<pair<int, double>> invalids;
+
+	// victims to be "Garbage Collection"
+	vector<int> victims;
+
+	// valid blocks will be appended into the "validInVictims[pageNum]"
+	// Because valid blocks should be copied to another free blocks
+	vector<int> validInVictims[PAGE_COUNT];
+
 public:
 	Greedy();
-	void calcVictim(Storage*);
+	void calcVictims(Storage*);
 	void calcFreeSpace(Storage*);
+	void cleanAllInvalids(Storage**);
 	void greedyMain(Storage**);
 };
+
+static bool cmpInvalid(pair<int, double>&, pair<int, double>&);
+static bool cmpEraseCount(pair<int, int>&, pair<int, int>&);
 
 #endif

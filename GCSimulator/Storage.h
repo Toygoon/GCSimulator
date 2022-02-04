@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 #include "Page.h"
 #include "BlockStatus.h"
 using namespace std;
@@ -19,9 +20,10 @@ private:
 public:
 	Storage(void);
 	Page* getPage(int);
+	void setPage(int, Page*);
 	double* calcTimes(void);
 	void printStat(void);
-	void formatData(void);
+	void formatData(int, int);
 };
 
 #endif

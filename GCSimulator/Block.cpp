@@ -70,3 +70,8 @@ BlockStatus Block::getBlockStatus(void) {
 bool Block::isDisabledBlock(void) {
 	return this->isDisabled;
 }
+
+void Block::formatBlock(void) {
+	this->setData("");
+	this->blockStatus = BlockStatus::BLOCK_FREE;
+}
