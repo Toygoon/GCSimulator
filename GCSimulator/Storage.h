@@ -22,7 +22,6 @@ public:
 	Storage(const Storage&);
 	Page* getPage(int);
 	void setPage(int, Page*);
-	double* calcPagesTimeAvg(void);
 	void printStat(void);
 	void formatData(int, int);
 };

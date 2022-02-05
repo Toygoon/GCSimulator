@@ -9,7 +9,6 @@
 
 Greedy::Greedy() {
 	// Constructors to initalize values
-	difference = 0;
 }
 
 // To sort the second value in tuples by descending order
@@ -94,50 +93,9 @@ void Greedy::cleanAllInvalids(Storage** s) {
 	}
 }
 
-void Greedy::whatsTheDifference(Storage* _before, Storage* _after) {
-	/* Calculates the difference how much faster than non garbage collected storage
-	* Greedy algorithms doesn't do the wear-leveling, so just write as normal. */
-	double beforeAllAvg = 0, afterAllAvg = 0;
-
-	// To simulate this, copy it.
-	Storage* before = _before, * after = _after;
-
-	// To calculate each average times
-	double* beforeAvg, *afterAvg;
-
-	// Format all storages
-	int range[] = { 0, PAGE_COUNT };
-	before->formatData(0, PAGE_COUNT);
-	after->formatData(0, PAGE_COUNT);
-
-	// Write data into the all cells
-	writeText(&before, 1, range);
-	writeText(&after, 1, range);
-
-	// Get average times
-	beforeAvg = before->calcPagesTimeAvg();
-	afterAvg = after->calcPagesTimeAvg();
-
-	// Calculate average
-	for (int i = 0; i < PAGE_COUNT; i++) {
-		beforeAllAvg += beforeAvg[i];
-		afterAllAvg += afterAvg[i];
-	}
-	beforeAllAvg /= PAGE_COUNT;
-	afterAllAvg /= PAGE_COUNT;
-
-	delete(before);
-	delete(after);
-
-	this->difference = beforeAllAvg - afterAllAvg;
-}
-
 /* In-place-update() algorithms
 ** in Cleaning policies in mobile computers using flash memory */
 void Greedy::greedyMain(Storage** s) {
-	// Copy storage to check difference
-	Storage* before = *s;
-
 	int freePagesPos = 0, freePageNum, victimPageNum;
 	Block* systemBuffer;
 
@@ -191,6 +149,5 @@ void Greedy::greedyMain(Storage** s) {
 			break;
 	}
 
-	whatsTheDifference(before, *s);
 	cout << endl;
 }

@@ -19,23 +19,6 @@ Page* Storage::getPage(int pageNum) {
 	return pages.at(pageNum);
 }
 
-double* Storage::calcPagesTimeAvg(void) {
-	/* Returns pair of average in pages for their access time  */
-	double* avg = new double[PAGE_COUNT], tmp;
-	
-	for (int i = 0; i < PAGE_COUNT; i++) {
-		tmp = 0;
-		for (int j = 0; j < BLOCK_COUNT; j++)
-			tmp += this->getPage(i)->getPageBlock()[j].getAccessTime();
-		tmp /= BLOCK_COUNT;
-
-		cout << i << ", " << tmp << endl;
-		avg[i] = tmp;
-	}
-
-	return avg;
-}
-
 void Storage::setPage(int pageNum, Page* p) {
 	memcpy(this->pages[pageNum], p, sizeof(Page));
 }
