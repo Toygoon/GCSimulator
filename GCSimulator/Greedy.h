@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include "Write.h"
 #include "Storage.h"
 using namespace std;
 
@@ -32,11 +33,16 @@ private:
 	// Because valid blocks should be copied to another free blocks
 	vector<int> validInVictims[PAGE_COUNT];
 
-public:
-	Greedy();
+	// Functions
 	void calcVictims(Storage*);
 	void calcFreeSpace(Storage*);
 	void cleanAllInvalids(Storage**);
+	void whatsTheDifference(Storage*, Storage*);
+public:
+	// whatsTheDifference uses this value
+	double difference;
+
+	Greedy();
 	void greedyMain(Storage**);
 };
 

@@ -19,9 +19,10 @@ private:
 	vector<Page*> pages;
 public:
 	Storage(void);
+	Storage(const Storage&);
 	Page* getPage(int);
 	void setPage(int, Page*);
-	vector<pair<int, double>> calcPageTimesAvg(void);
+	double* calcPagesTimeAvg(void);
 	void printStat(void);
 	void formatData(int, int);
 };

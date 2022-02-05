@@ -11,16 +11,17 @@ Storage::Storage() {
 		this->pages.push_back(new Page(i));
 }
 
+Storage::Storage(const Storage& copy) : pages(copy.pages) {
+	// Copy Constructor
+}
+
 Page* Storage::getPage(int pageNum) {
 	return pages.at(pageNum);
 }
 
-vector<pair<int, double>> Storage::calcPageTimesAvg(void) {
-	/* Returns pair of average in pages for their access time 
-	vector's structure : <pageNum, average of access time> */
-
-	vector<pair<int, double>> avg;
-	double tmp;
+double* Storage::calcPagesTimeAvg(void) {
+	/* Returns pair of average in pages for their access time  */
+	double* avg = new double[PAGE_COUNT], tmp;
 	
 	for (int i = 0; i < PAGE_COUNT; i++) {
 		tmp = 0;
@@ -28,7 +29,8 @@ vector<pair<int, double>> Storage::calcPageTimesAvg(void) {
 			tmp += this->getPage(i)->getPageBlock()[j].getAccessTime();
 		tmp /= BLOCK_COUNT;
 
-		avg.push_back({ i, tmp });
+		cout << i << ", " << tmp << endl;
+		avg[i] = tmp;
 	}
 
 	return avg;
