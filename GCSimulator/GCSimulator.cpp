@@ -93,6 +93,10 @@ int main(void) {
 			Greedy* g = new Greedy();
 			g->greedyMain(&storage);
 		}
+		else if (input.compare("format") == 0) {
+			storage->formatData(0, PAGE_COUNT - 1);
+			cout << "Format completed." << endl;
+		}
 		else {
 			cout << "Invalid command." << endl;
 		}

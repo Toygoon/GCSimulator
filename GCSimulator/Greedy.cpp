@@ -115,7 +115,7 @@ void Greedy::greedyMain(Storage** s) {
 		return;
 	}
 
-	for (int i = 0; i < this->victims.size(); i++) {
+	for (int i = 0; i < this->victims.size(); i++)  {
 		freePageNum = this->freePages.at(freePagesPos).first;
 		victimPageNum = victims.at(i);
 		cout << "Victim page " << victimPageNum << " has selected." << endl;
@@ -127,9 +127,10 @@ void Greedy::greedyMain(Storage** s) {
 			systemBuffer[j].setData((*s)->getPage(victimPageNum)->getPageBlock()[j].getData());
 
 			/* Update data in the system buffer; */
-			if ((*s)->getPage(victimPageNum)->getPageBlock()[j].getBlockStatus() == BlockStatus::BLOCK_INVALID)
+			if ((*s)->getPage(victimPageNum)->getPageBlock()[j].getBlockStatus() == BlockStatus::BLOCK_INVALID) {
 				systemBuffer[j].formatBlock();
-				//(*s)->getPage(victimPageNum)->getPageBlock()[j].formatBlock();
+				systemBuffer[j].setBlockStatus(BlockStatus::BLOCK_INVALID);
+			}
 		}
 
 		/* Erase the segment; */
@@ -138,6 +139,7 @@ void Greedy::greedyMain(Storage** s) {
 		/* Write back all data from system buffer to segment; */
 		cout << "Writing buffer into the " << freePageNum << " page." << endl;
 		for (int j = 0; j < BLOCK_COUNT; j++)
+			if (!(systemBuffer[j].getBlockStatus() == BlockStatus::BLOCK_INVALID))
 			(*s)->getPage(freePageNum)->getPageBlock()[j].setData(systemBuffer[j].getData());
 
 		freePagesPos++;
