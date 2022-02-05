@@ -21,7 +21,7 @@ public:
 	Storage(void);
 	Page* getPage(int);
 	void setPage(int, Page*);
-	double* calcTimes(void);
+	vector<pair<int, double>> calcPageTimesAvg(void);
 	void printStat(void);
 	void formatData(int, int);
 };

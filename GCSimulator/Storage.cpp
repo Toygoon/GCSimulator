@@ -15,15 +15,23 @@ Page* Storage::getPage(int pageNum) {
 	return pages.at(pageNum);
 }
 
-double* Storage::calcTimes(void) {
-	// Create average tables
-	double* times= new double[PAGE_COUNT];
+vector<pair<int, double>> Storage::calcPageTimesAvg(void) {
+	/* Returns pair of average in pages for their access time 
+	vector's structure : <pageNum, average of access time> */
 
+	vector<pair<int, double>> avg;
+	double tmp;
+	
 	for (int i = 0; i < PAGE_COUNT; i++) {
-		cout << times[i] << endl;
+		tmp = 0;
+		for (int j = 0; j < BLOCK_COUNT; j++)
+			tmp += this->getPage(i)->getPageBlock()[j].getAccessTime();
+		tmp /= BLOCK_COUNT;
+
+		avg.push_back({ i, tmp });
 	}
 
-	return 0;
+	return avg;
 }
 
 void Storage::setPage(int pageNum, Page* p) {
