@@ -139,6 +139,7 @@ void Greedy::greedyMain(Storage** s) {
 		/* Write back all data from system buffer to segment; */
 		cout << "Writing buffer into the " << freePageNum << " page." << endl;
 		for (int j = 0; j < BLOCK_COUNT; j++)
+			// Copy only valid blocks to the free page
 			if (!(systemBuffer[j].getBlockStatus() == BlockStatus::BLOCK_INVALID))
 			(*s)->getPage(freePageNum)->getPageBlock()[j].setData(systemBuffer[j].getData());
 
