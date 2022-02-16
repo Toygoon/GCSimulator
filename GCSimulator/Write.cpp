@@ -16,14 +16,14 @@ inline char separator(void) {
 	#endif
 }
 
-string readText(void) {
+string readText(string fileName) {
 	// Get current path
 	char tmp[256];
 	_getcwd(tmp, 256);
 
 	string workdir(tmp), data;
 	workdir += separator();
-	workdir += "data.txt";
+	workdir += fileName;
 
 	// data.txt to string
 	ifstream input_file(workdir);
@@ -47,7 +47,7 @@ string getString(string s, int a) {
 	return buffer;
 }
 
-void writeText(Storage** s, int times, int* range) {
+void writeText(Storage** s, int times, int* range, string fileName) {
 	// Valid status check
 	for (int i = range[0]; i <= range[1]; i++) {
 		if ((*s)->getBlock(i)->hasInvalidPage()) {
@@ -60,7 +60,7 @@ void writeText(Storage** s, int times, int* range) {
 	string data = "";
 
 	// Make text many times
-	const string readData = readText();
+	const string readData = readText(fileName);
 	for (int i = 0; i < times; i++)
 		data += readData;
 

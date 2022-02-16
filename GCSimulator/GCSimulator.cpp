@@ -13,15 +13,27 @@
 #include "Greedy.h"
 using namespace std;
 
-int main(void) {
+int main(int argc, char** argv) {
+	// Read given data file from args
+	string fileName;
+
+	if (argc > 1) {
+		cout << "* Input file : " << argv[1] << endl;
+		fileName.push_back(*argv[1]);
+	}
+	else {
+		cout << "* Input file : data.txt (No input file selected)" << endl;
+		fileName = "data.txt";
+	}
+
 	// Initalize new flash storage
 	Storage* storage = new Storage();
 
 	string input = "", p = "", b = "";
 	int block = -1, page = -1;
 
-	cout << "Operations : status, read, write, reset, format, exit" << endl
-		<< "Garbage Collectors : greedy" << endl;
+	cout << "* Operations : status, read, write, reset, format, exit" << endl
+		<< "* Garbage Collectors : greedy" << endl << endl;
 
 	while (true) {
 		cout << ">>> ";
@@ -77,7 +89,7 @@ int main(void) {
 			cin >> range[0] >> range[1];
 
 			// Write data to cell
-			int times, max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText().length()
+			int times, max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText(fileName).length()
 				/ ((range[1] - range[0]) * PAGE_COUNT * MAX_LENGTH)));
 
 			// Calculate max times of writing
@@ -86,7 +98,7 @@ int main(void) {
 			cin >> times;
 
 			// Write text
-			writeText(&storage, times, range);
+			writeText(&storage, times, range, fileName);
 
 		}
 		else if (input.compare("greedy") == 0) {
@@ -95,12 +107,13 @@ int main(void) {
 		}
 		else if (input.compare("format") == 0) {
 			storage->formatData(0, BLOCK_COUNT - 1);
-			cout << "Format completed." << endl;
+			cout << "Format completed." << endl << endl;
 		}
 		else {
-			cout << "Invalid command." << endl;
+			cout << "Invalid command." << endl << endl;
 		}
 	}
 
 	delete(storage);
+	return 0;
 }

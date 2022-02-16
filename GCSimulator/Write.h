@@ -17,8 +17,8 @@
 using namespace std;
 
 inline char separator(void);
-string readText(void);
+string readText(string);
 string getString(string, int);
-void writeText(Storage**, int, int*);
+void writeText(Storage**, int, int*, string);
 
 #endif
