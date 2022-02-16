@@ -16,22 +16,22 @@ using namespace std;
 
 class Greedy {
 private:
-	// The page number that all blocks are free status
-	// vector's tuple structure : <pageNum, total eraseCount>
+	// The block number that all pages are free status
+	// vector's tuple structure : <blockNum, total eraseCount>
 	// To sort the eraseCount, the data will be saved into tuple structure
-	vector<pair<int, int>> freePages;
+	vector<pair<int, int>> freeBlocks;
 
-	// Percentage of invalid blocks per each page
-	// vector's tuple structure : <pageNum, invalid percentage>
+	// Percentage of invalid pages per each block
+	// vector's tuple structure : <blockNum, invalid percentage>
 	// To sort the percentage, the data will be saved into tuple structure
 	vector<pair<int, double>> invalids;
 
 	// victims to be "Garbage Collection"
 	vector<int> victims;
 
-	// valid blocks will be appended into the "validInVictims[pageNum]"
-	// Because valid blocks should be copied to another free blocks
-	vector<int> validInVictims[PAGE_COUNT];
+	// valid pages will be appended into the "validInVictims[blockNum]"
+	// Because valid pages should be copied to another free pages
+	vector<int> validInVictims[BLOCK_COUNT];
 
 	// Functions
 	void calcVictims(Storage*);

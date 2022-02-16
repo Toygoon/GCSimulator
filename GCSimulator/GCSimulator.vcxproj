@@ -140,10 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
-    <ClCompile Include="BlockStatus.cpp" />
     <ClCompile Include="GCSimulator.cpp" />
     <ClCompile Include="Greedy.cpp" />
     <ClCompile Include="Page.cpp" />
+    <ClCompile Include="PageStatus.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Reader.cpp" />
     <ClCompile Include="Storage.cpp" />
@@ -151,10 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
-    <ClInclude Include="BlockStatus.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Greedy.h" />
     <ClInclude Include="Page.h" />
+    <ClInclude Include="PageStatus.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Reader.h" />
     <ClInclude Include="Storage.h" />

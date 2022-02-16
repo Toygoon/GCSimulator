@@ -10,18 +10,18 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
-#include "Page.h"
-#include "BlockStatus.h"
+#include "Block.h"
+#include "PageStatus.h"
 using namespace std;
 
 class Storage {
 private:
-	vector<Page*> pages;
+	vector<Block*> blocks;
 public:
 	Storage(void);
 	Storage(const Storage&);
-	Page* getPage(int);
-	void setPage(int, Page*);
+	Block* getBlock(int);
+	void setBlock(int, Block*);
 	void printStat(void);
 	void formatData(int, int);
 };

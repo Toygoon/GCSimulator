@@ -8,26 +8,39 @@
 #define PAGE
 
 #include <iostream>
-#include <vector>
-#include <string>
-#include "Block.h"
 #include "Global.h"
+#include "PageStatus.h"
 using namespace std;
 
 class Page {
 private:
 	/* Page simulation class
-	pageNum : indicates the current page number (it's just an id)
-	page : the array of blocks
+	pageNum : current index number of page
+	isDisabled : erase limit exceeded page
+	eraseCount : the count of erasures
+	accessTime : when data input, this value increases (1 / MAX_ERASURE_LIMIT) seconds.
+	data : the data page saves
+	pageStatus : page valid, invalid, free status
 	*/
 	int pageNum;
-	Block* page;
+	int eraseCount;
+	bool isDisabled;
+	double accessTime;
+	string data;
+	PageStatus pageStatus;
 
 public:
-	Page(int);
+	Page();
+	void setPageNum(int);
+	int setData(string);
+	void setPageStatus(PageStatus);
 	int getPageNum(void);
-	Block* getPageBlock(void);
-	bool hasInvalidBlock(void);
+	int getEraseCount(void);
+	string getData(void);
+	double getAccessTime(void);
+	PageStatus getPageStatus(void);
+	bool isDisabledPage(void);
+	void formatPage(void);
 };
 
 #endif

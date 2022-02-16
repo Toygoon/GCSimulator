@@ -50,8 +50,8 @@ string getString(string s, int a) {
 void writeText(Storage** s, int times, int* range) {
 	// Valid status check
 	for (int i = range[0]; i <= range[1]; i++) {
-		if ((*s)->getBlock(i)->hasInvalidPage()) {
-			cout << "Block " << i << " has an invalid page. Do the gc first." << endl;
+		if ((*s)->getPage(i)->hasInvalidBloock()) {
+			cout << "Page " << i << " has an invalid bloock. Do the gc first." << endl;
 			return;
 		}
 	}
@@ -64,46 +64,46 @@ void writeText(Storage** s, int times, int* range) {
 	for (int i = 0; i < times; i++)
 		data += readData;
 
-	// Recalculate block counts
-	const int block_count = range[1] - range[0];
+	// Recalculate page counts
+	const int page_count = range[1] - range[0];
 
-	int totalPages = block_count * PAGE_COUNT, totalTimes = data.length() / totalPages, currentPos = 0, currentBlock = range[0], currentPage = 0;
+	int totalBloocks = page_count * BLOCK_COUNT, totalTimes = data.length() / totalBlocks, currentPos = 0, currentPage = range[0], currentBlock = 0;
 
 	// Write data into the cell separately
 	while (currentPos + MAX_LENGTH <= data.length()) {
 		string tmp = getString(data, currentPos);
 
 		// Set a data
-		int res = (*s)->getBlock(currentBlock)->getBlockPage()[currentPage].setData(tmp);
+		int res = (*s)->getPage(currentPage)->getPageBloock()[currentBlock].setData(tmp);
 
 		if (res == -1) {
-			cout << "Failed to write data, canceled. " << currentBlock << "p, " << currentPage << "b." << endl;
+			cout << "Failed to write data, canceled. " << currentPage << "p, " << currentBloock << "b." << endl;
 			return;
 		}
-		currentPage++;
+		currentBloock++;
 		currentPos += MAX_LENGTH;
 
 		// It works like the circular queue
-		// When page count exceeds the limits, increase the current block number
-		if (currentPage == PAGE_COUNT) {
-			currentPage = 0;
-			currentBlock++;
+		// When bloock count exceeds the limits, increase the current page number
+		if (currentBloock == BLOCK_COUNT) {
+			currentBloock = 0;
+			currentPage++;
 
-			if (currentBlock > range[1])
-				currentBlock = range[0];
+			if (currentPage > range[1])
+				currentPage = range[0];
 		};
 	}
 
-	cout << "Writing done at " << currentBlock << "b, " << currentPage << "p." << endl << endl;
+	cout << "Writing done at " << currentPage << "p, " << currentBloock << "b." << endl << endl;
 
-	// Make another page invalid
-	for (int i = currentPage + 1; i < PAGE_COUNT; i++)
-		(*s)->getBlock(currentBlock)->getBlockPage()[i].setPageStatus(PageStatus::PAGE_INVALID);
+	// Make another bloock invalid
+	for (int i = currentBloock + 1; i < BLOCK_COUNT; i++)
+		(*s)->getPage(currentPage)->getPageBloock()[i].setBlockStatus(BlockStatus::BLOCK_INVALID);
 
-	if (currentBlock + 1 <= range[1]) {
-		for (int i = currentBlock + 1; i <= range[1]; i++) {
-			for (int j = 0; j < PAGE_COUNT; j++) {
-				(*s)->getBlock(i)->getBlockPage()[j].setPageStatus(PageStatus::PAGE_INVALID);
+	if (currentPage + 1 <= range[1]) {
+		for (int i = currentPage + 1; i <= range[1]; i++) {
+			for (int j = 0; j < BLOCK_COUNT; j++) {
+				(*s)->getPage(i)->getPageBloock()[j].setBlockStatus(BlockStatus::BLOCK_INVALID);
 			}
 		}
 	}

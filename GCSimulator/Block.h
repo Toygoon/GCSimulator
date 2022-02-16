@@ -8,39 +8,26 @@
 #define BLOCK
 
 #include <iostream>
+#include <vector>
+#include <string>
+#include "Page.h"
 #include "Global.h"
-#include "BlockStatus.h"
 using namespace std;
 
 class Block {
 private:
 	/* Block simulation class
-	blockNum : current index number of block
-	isDisabled : erase limit exceeded block
-	eraseCount : the count of erasures
-	accessTime : when data input, this value increases (1 / MAX_ERASURE_LIMIT) seconds.
-	data : the data block saves
-	blockStatus : block valid, invalid, free status
+	blockNum : indicates the current block number (it's just an id)
+	block : the array of pages
 	*/
 	int blockNum;
-	int eraseCount;
-	bool isDisabled;
-	double accessTime;
-	string data;
-	BlockStatus blockStatus;
+	Page* block;
 
 public:
-	Block();
-	void setBlockNum(int);
-	int setData(string);
-	void setBlockStatus(BlockStatus);
+	Block(int);
 	int getBlockNum(void);
-	int getEraseCount(void);
-	string getData(void);
-	double getAccessTime(void);
-	BlockStatus getBlockStatus(void);
-	bool isDisabledBlock(void);
-	void formatBlock(void);
+	Page* getBlockPage(void);
+	bool hasInvalidPage(void);
 };
 
 #endif

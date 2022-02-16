@@ -1,0 +1,16 @@
+/* The Simulation of Bloock Status
+ *
+ * @author Lim Jung Min,
+ * Department of Computer Engineering, Yeungnam University.
+ */
+
+#include "BloockStatus.h"
+
+string getBloockStatusString(BlockStatus bs) {
+	if (bs == BloockStatus::BLOCK_FREE)
+		return "free";
+	else if (bs == BloockStatus::BLOCK_INVALID)
+		return "invalid";
+	
+	return "valid";
+}

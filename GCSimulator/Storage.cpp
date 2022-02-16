@@ -7,59 +7,59 @@
 #include "Storage.h"
 
 Storage::Storage() {
-	for (int i = 0; i < PAGE_COUNT; i++)
-		this->pages.push_back(new Page(i));
+	for (int i = 0; i < BLOCK_COUNT; i++)
+		this->blocks.push_back(new Block(i));
 }
 
-Storage::Storage(const Storage& copy) : pages(copy.pages) {
+Storage::Storage(const Storage& copy) : blocks(copy.blocks) {
 	// Copy Constructor
 }
 
-Page* Storage::getPage(int pageNum) {
-	return pages.at(pageNum);
+Block* Storage::getBlock(int blockNum) {
+	return blocks.at(blockNum);
 }
 
-void Storage::setPage(int pageNum, Page* p) {
-	memcpy(this->pages[pageNum], p, sizeof(Page));
+void Storage::setBlock(int blockNum, Block* p) {
+	memcpy(this->blocks[blockNum], p, sizeof(Block));
 }
 
 void Storage::printStat(void) {
 	cout << "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl
-		<< "[STAT] Total pages : " << PAGE_COUNT << endl
-		<< "[STAT] Blocks per page : " << BLOCK_COUNT << endl;
+		<< "[STAT] Total blocks : " << BLOCK_COUNT << endl
+		<< "[STAT] Pages in a block : " << PAGE_COUNT << endl;
 
 	double currentAvg = 0;
-	for (int i = 0; i < PAGE_COUNT; i++) {
+	for (int i = 0; i < BLOCK_COUNT; i++) {
 		currentAvg = 0;
 		// Set fixed numbers
 		cout.precision(4);
 		
-		for (int j = 0; j < BLOCK_COUNT; j++) {
+		for (int j = 0; j < PAGE_COUNT; j++) {
 			// setw(2) is same as printf("%2d");
 			cout << "[BLCK] "
-				// prints current page
-				<< setw(to_string(PAGE_COUNT).length()) << i << "p " 
 				// prints current block
-				<< setw(to_string(BLOCK_COUNT).length()) << j << "b, "
+				<< setw(to_string(BLOCK_COUNT).length()) << i << "b " 
+				// prints current page
+				<< setw(to_string(PAGE_COUNT).length()) << j << "p, "
 				// prints current erase count
-				<< "ec : " << setw(to_string(MAX_ERASURE_LIMIT).length()) << this->getPage(i)->getPageBlock()[j].getEraseCount()
-				// prints current block status
-				<< ", " << setw(getBlockStatusString(BlockStatus::BLOCK_INVALID).length()) << getBlockStatusString(this->getPage(i)->getPageBlock()[j].getBlockStatus())
+				<< "ec : " << setw(to_string(MAX_ERASURE_LIMIT).length()) << this->getBlock(i)->getBlockPage()[j].getEraseCount()
+				// prints current page status
+				<< ", " << setw(getPageStatusString(PageStatus::PAGE_INVALID).length()) << getPageStatusString(this->getBlock(i)->getBlockPage()[j].getPageStatus())
 				// prints current data
-				<< ", Data : " << this->getPage(i)->getPageBlock()[j].getData() << endl;
+				<< ", Data : " << this->getBlock(i)->getBlockPage()[j].getData() << endl;
 		}
 	}
 }
 
 void Storage::formatData(int start, int end) {
-	if (start > PAGE_COUNT || end > PAGE_COUNT || start < 0 || end < 0) {
+	if (start > BLOCK_COUNT || end > BLOCK_COUNT || start < 0 || end < 0) {
 		cout << "Parameter error; formatData(" << start << ", " << end << ")" << endl;
 		return;
 	}
 
-	// The page of start <= _RANGE_ <= end will be deleted
+	// The block of start <= _RANGE_ <= end will be deleted
 	// Just deletes all data, and make all cells free
 	for (int i = start; i <= end; i++)
-		for (int j = 0; j < BLOCK_COUNT; j++)
-			this->getPage(i)->getPageBlock()[j].formatBlock();
+		for (int j = 0; j < PAGE_COUNT; j++)
+			this->getBlock(i)->getBlockPage()[j].formatPage();
 }

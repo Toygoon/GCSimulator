@@ -27,28 +27,28 @@ void Greedy::calcVictims(Storage* s) {
 
 	// calcInvalids calculates the list : invalids, victims
 	// Calculate; invalids
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGE_COUNT; i++) {
 		tmp = 0;
-		for (int j = 0; j < PAGE_COUNT; j++)
-			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
+		for (int j = 0; j < BLOCK_COUNT; j++)
+			if (s->getPage(i)->getPageBloock()[j].getBlockStatus() == BlockStatus::BLOCK_INVALID)
 				tmp++;
-		tmp /= PAGE_COUNT;
+		tmp /= BLOCK_COUNT;
 		// Push it to the tuple
 		this->invalids.push_back({ i, tmp });
 	}
 
 	// Calculate; victims, validInVictims
-	for (int i = 0; i < BLOCK_COUNT; i++) {
-		// Find out valid pages, victims
-		// 1 : all pages are invalid, so just be deleted
+	for (int i = 0; i < PAGE_COUNT; i++) {
+		// Find out valid bloocks, victims
+		// 1 : all bloocks are invalid, so just be deleted
 		// 0.x : needs to work gc.
 		tmp = this->invalids.at(i).second;
 		if (0 < tmp && tmp < 1) {
-			// Save current blockNum
+			// Save current pageNum
 			this->victims.push_back(i);
 
-			for (int j = 0; j < PAGE_COUNT; j++)
-				if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_VALID)
+			for (int j = 0; j < BLOCK_COUNT; j++)
+				if (s->getPage(i)->getPageBloock()[j].getBlockStatus() == BlockStatus::BLOCK_VALID)
 					this->validInVictims->push_back(j);
 		}
 	}
@@ -59,34 +59,34 @@ void Greedy::calcVictims(Storage* s) {
 
 void Greedy::calcFreeSpace(Storage* s) {
 	// Tempoary buffer for saving free status of flash storage
-	double* buffer = new double[PAGE_COUNT];
+	double* buffer = new double[BLOCK_COUNT];
 	int totalEc;
 
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGE_COUNT; i++) {
 		buffer[i] = 0;
-		for (int j = 0; j < PAGE_COUNT; j++) {
-			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_FREE) {
+		for (int j = 0; j < BLOCK_COUNT; j++) {
+			if (s->getPage(i)->getPageBloock()[j].getBlockStatus() == BlockStatus::BLOCK_FREE) {
 				buffer[i]++;
 			}
 		}
 	}
 
 	// calcFreeSpace calculates the list : freeSpace
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGE_COUNT; i++) {
 		totalEc = 0;
-		if (buffer[i] == PAGE_COUNT) {
-			for (int j = 0; j < PAGE_COUNT; j++)
-				totalEc += s->getBlock(i)->getBlockPage()[j].getEraseCount();
-			this->freeBlocks.push_back({ i, totalEc });
+		if (buffer[i] == BLOCK_COUNT) {
+			for (int j = 0; j < BLOCK_COUNT; j++)
+				totalEc += s->getPage(i)->getPageBloock()[j].getEraseCount();
+			this->freePages.push_back({ i, totalEc });
 		}
 	}
 
 	// Sort the values by erase count
-	sort(this->freeBlocks.begin(), this->freeBlocks.end(), cmpEraseCount);
+	sort(this->freePages.begin(), this->freePages.end(), cmpEraseCount);
 }
 
 void Greedy::cleanAllInvalids(Storage** s) {
-	// Format data if a block has only invalid pages
+	// Format data if a page has only invalid bloocks
 	for (int i = 0; i < this->invalids.size(); i++) {
 		if (invalids.at(i).second == 1)
 			(*s)->formatData(invalids.at(i).first, invalids.at(i).first);
@@ -96,8 +96,8 @@ void Greedy::cleanAllInvalids(Storage** s) {
 /* In-place-update() algorithms
 ** in Cleaning policies in mobile computers using flash memory */
 void Greedy::greedyMain(Storage** s) {
-	int freeBlocksPos = 0, freeBlockNum, victimBlockNum;
-	Page* systemBuffer;
+	int freePagesPos = 0, freePageNum, victimPageNum;
+	Bloock* systemBuffer;
 
 	/* Select a victim segment for cleaning;
 	** Identify valid data in the segment; */
@@ -109,43 +109,43 @@ void Greedy::greedyMain(Storage** s) {
 	// Calculate free spaces
 	this->calcFreeSpace(*s);
 
-	// Check the page has enough blocks
-	if (freeBlocks.size() == 0) {
-		cout << "There's no free blocks in the storage." << endl;
+	// Check the bloock has enough pages
+	if (freePages.size() == 0) {
+		cout << "There's no free pages in the storage." << endl;
 		return;
 	}
 
 	for (int i = 0; i < this->victims.size(); i++)  {
-		freeBlockNum = this->freeBlocks.at(freeBlocksPos).first;
-		victimBlockNum = victims.at(i);
-		cout << "Victim block " << victimBlockNum << " has selected." << endl;
+		freePageNum = this->freePages.at(freePagesPos).first;
+		victimPageNum = victims.at(i);
+		cout << "Victim page " << victimPageNum << " has selected." << endl;
 
-		systemBuffer = new Page[PAGE_COUNT];
-		for (int j = 0; j < PAGE_COUNT; j++) {
+		systemBuffer = new Bloock[BLOCK_COUNT];
+		for (int j = 0; j < BLOCK_COUNT; j++) {
 			/* Read all data in the segment into a system buffer; */
-			// memcpy(systemBuffer, (*s)->getBlock(victimNum), sizeof(Block)); // not working memcpy -> TODO: use copy constuctor later
-			systemBuffer[j].setData((*s)->getBlock(victimBlockNum)->getBlockPage()[j].getData());
+			// memcpy(systemBuffer, (*s)->getPage(victimNum), sizeof(Page)); // not working memcpy -> TODO: use copy constuctor later
+			systemBuffer[j].setData((*s)->getPage(victimPageNum)->getPageBloock()[j].getData());
 
 			/* Update data in the system buffer; */
-			if ((*s)->getBlock(victimBlockNum)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_INVALID) {
-				systemBuffer[j].formatPage();
-				systemBuffer[j].setPageStatus(PageStatus::PAGE_INVALID);
+			if ((*s)->getPage(victimPageNum)->getPageBloock()[j].getBlockStatus() == BlockStatus::BLOCK_INVALID) {
+				systemBuffer[j].formatBloock();
+				systemBuffer[j].setBloockStatus(BlockStatus::BLOCK_INVALID);
 			}
 		}
 
 		/* Erase the segment; */
-		(*s)->formatData(victimBlockNum, victimBlockNum);
+		(*s)->formatData(victimPageNum, victimPageNum);
 
 		/* Write back all data from system buffer to segment; */
-		cout << "Writing buffer into the " << freeBlockNum << " block." << endl;
-		for (int j = 0; j < PAGE_COUNT; j++)
-			// Copy only valid pages to the free block
-			if (!(systemBuffer[j].getPageStatus() == PageStatus::PAGE_INVALID))
-			(*s)->getBlock(freeBlockNum)->getBlockPage()[j].setData(systemBuffer[j].getData());
+		cout << "Writing buffer into the " << freePageNum << " page." << endl;
+		for (int j = 0; j < BLOCK_COUNT; j++)
+			// Copy only valid bloocks to the free page
+			if (!(systemBuffer[j].getBloockStatus() == BlockStatus::BLOCK_INVALID))
+			(*s)->getPage(freePageNum)->getPageBloock()[j].setData(systemBuffer[j].getData());
 
-		freeBlocksPos++;
+		freePagesPos++;
 		// No more free spaces
-		if (freeBlocksPos > freeBlocks.size())
+		if (freePagesPos > freePages.size())
 			break;
 	}
 
