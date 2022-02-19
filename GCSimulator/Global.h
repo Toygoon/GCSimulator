@@ -7,13 +7,13 @@
 #ifndef GLOBAL
 #define GLOBAL
 
-/* PAGE_SIZE, and BLOCK_COUNT will be deprecated
+/* PAGE_SIZE, and PAGES_PER_BLOCK will be deprecated
 * Because it'll be converted for dynamic modifiable values */
 // The count of page in one storage
 #define PAGE_SIZE 4096
 
 // The count of page per block
-#define BLOCK_COUNT 64
+#define PAGES_PER_BLOCK 64
 
 /* Set Flash Storage Configuration */
 // The count of each page size (in Bytes)

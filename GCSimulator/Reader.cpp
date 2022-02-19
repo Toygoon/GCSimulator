@@ -8,7 +8,7 @@ int readData(Storage* s, bool isBlock) {
 	string info = "What ";
 	if (isBlock) {
 		info += "block do you want to read ? (Total ";
-		info += to_string(BLOCK_COUNT);
+		info += to_string(PAGES_PER_BLOCK);
 		info += " blocks)\n";
 	}
 	else {
@@ -42,7 +42,7 @@ int readData(Storage* s, bool isBlock) {
 			}
 		}
 
-		if (0 <= index && index <= BLOCK_COUNT) {
+		if (0 <= index && index <= PAGES_PER_BLOCK) {
 			return index;
 		}
 		else {

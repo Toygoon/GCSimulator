@@ -31,7 +31,7 @@ private:
 
 	// valid pages will be appended into the "validInVictims[blockNum]"
 	// Because valid pages should be copied to another free pages
-	vector<int> validInVictims[BLOCK_COUNT];
+	vector<int> validInVictims[PAGES_PER_BLOCK];
 
 	// Functions
 	void calcVictims(Storage*);

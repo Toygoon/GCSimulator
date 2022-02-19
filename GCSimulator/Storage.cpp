@@ -8,7 +8,7 @@
 
 Storage::Storage() {
 
-	for (int i = 0; i < BLOCK_COUNT; i++)
+	for (int i = 0; i < PAGES_PER_BLOCK; i++)
 		this->blocks.push_back(new Block(i));
 }
 
@@ -26,13 +26,13 @@ void Storage::setBlock(int blockNum, Block* p) {
 
 void Storage::printStat(void) {
 	cout << "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl
-		<< "[STAT] Total blocks : " << BLOCK_COUNT << endl
+		<< "[STAT] Total blocks : " << PAGES_PER_BLOCK << endl
 		<< "[STAT] Pages in a block : " << PAGE_SIZE << endl;
 
 	double currentAvg = 0;
 	// Disabled for now
 	/*
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
 		currentAvg = 0;
 		// Set fixed numbers
 		cout.precision(4);
@@ -41,7 +41,7 @@ void Storage::printStat(void) {
 			// setw(2) is same as printf("%2d");
 			cout << "[BLCK] "
 				// prints current block
-				<< setw(to_string(BLOCK_COUNT).length()) << i << "b " 
+				<< setw(to_string(PAGES_PER_BLOCK).length()) << i << "b " 
 				// prints current page
 				<< setw(to_string(PAGE_SIZE).length()) << j << "p, "
 				// prints current erase count
@@ -56,7 +56,7 @@ void Storage::printStat(void) {
 }
 
 void Storage::formatData(int start, int end) {
-	if (start > BLOCK_COUNT || end > BLOCK_COUNT || start < 0 || end < 0) {
+	if (start > PAGES_PER_BLOCK || end > PAGES_PER_BLOCK || start < 0 || end < 0) {
 		cout << "Parameter error; formatData(" << start << ", " << end << ")" << endl;
 		return;
 	}

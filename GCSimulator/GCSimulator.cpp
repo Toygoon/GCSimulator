@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
 				cout << "Invalid values." << endl;
 			}
 
-			if (0 <= block && block <= BLOCK_COUNT && 0 <= page && page <= PAGE_SIZE) {
+			if (0 <= block && block <= PAGES_PER_BLOCK && 0 <= page && page <= PAGE_SIZE) {
 				cout << "Block " << block << ", Page " << page << " : "
 					<< storage->getBlock(block)->getBlockPage()[page].getData() << endl;
 			}
@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
 			int* range = new int[2];
 
 			// Input sequence
-			cout << endl << "Input range of block (begin end). Last block num : " << BLOCK_COUNT - 1 << endl
+			cout << endl << "Input range of block (begin end). Last block num : " << PAGES_PER_BLOCK - 1 << endl
 				<< "Range >>> ";
 			cin >> range[0] >> range[1];
 
@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
 			g->greedyMain(&storage);
 		}
 		else if (input.compare("format") == 0) {
-			storage->formatData(0, BLOCK_COUNT - 1);
+			storage->formatData(0, PAGES_PER_BLOCK - 1);
 			cout << "Format completed." << endl << endl;
 		}
 		else {

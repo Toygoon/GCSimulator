@@ -27,7 +27,7 @@ void Greedy::calcVictims(Storage* s) {
 
 	// calcInvalids calculates the list : invalids, victims
 	// Calculate; invalids
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
 		tmp = 0;
 		for (int j = 0; j < PAGE_SIZE; j++)
 			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
@@ -38,7 +38,7 @@ void Greedy::calcVictims(Storage* s) {
 	}
 
 	// Calculate; victims, validInVictims
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
 		// Find out valid pages, victims
 		// 1 : all pages are invalid, so just be deleted
 		// 0.x : needs to work gc.
@@ -62,7 +62,7 @@ void Greedy::calcFreeSpace(Storage* s) {
 	double* buffer = new double[PAGE_SIZE];
 	int totalEc;
 
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
 		buffer[i] = 0;
 		for (int j = 0; j < PAGE_SIZE; j++) {
 			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_FREE) {
@@ -72,7 +72,7 @@ void Greedy::calcFreeSpace(Storage* s) {
 	}
 
 	// calcFreeSpace calculates the list : freeSpace
-	for (int i = 0; i < BLOCK_COUNT; i++) {
+	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
 		totalEc = 0;
 		if (buffer[i] == PAGE_SIZE) {
 			for (int j = 0; j < PAGE_SIZE; j++)
