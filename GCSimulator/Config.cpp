@@ -59,6 +59,7 @@ int Config::createDefaultConfigs(void) {
 	vector<string> config;
 
 	// Config contents
+	/*
 	config.push_back("# Flash storage size in Gigabytes\n");
 	config.push_back("FLASH_STORAGE_SIZE=128\n\n");
 	config.push_back("# The count of each page size in Bytes\n");
@@ -67,7 +68,7 @@ int Config::createDefaultConfigs(void) {
 	config.push_back("PAGES_PER_BLOCK=64\n\n");
 	config.push_back("# The limit of erasure per cell\n");
 	config.push_back("MAX_ERASURE_LIMIT=1000\n\n");
-
+	*/
 	if (file.is_open()) {
 		// Write default configs
 		for (const auto& e : config)
