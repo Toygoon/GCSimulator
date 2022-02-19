@@ -7,7 +7,7 @@
 #include "Storage.h"
 
 Storage::Storage() {
-
+	// Set flashSizes
 	for (int i = 0; i < PAGES_PER_BLOCK; i++)
 		this->blocks.push_back(new Block(i));
 }

@@ -18,6 +18,7 @@ class Storage {
 private:
 	size_l flashSizeBytes;
 	size_l totalBlockCount;
+	size_l totalPageCount;
 	vector<Block*> blocks;
 public:
 	Storage(void);

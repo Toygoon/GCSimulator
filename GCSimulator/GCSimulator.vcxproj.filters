@@ -31,6 +31,12 @@
     <Filter Include="헤더 파일\gc">
       <UniqueIdentifier>{8a7a4f67-398e-4798-9d2b-4fbf752254fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\conf">
+      <UniqueIdentifier>{810b3aa0-97db-4b7b-8652-c7aaaf628024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\conf">
+      <UniqueIdentifier>{4e066509-8a6d-4a94-a319-3013a4a8b3d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GCSimulator.cpp">
@@ -60,6 +66,9 @@
     <ClCompile Include="PageStatus.cpp">
       <Filter>소스 파일\flash</Filter>
     </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>소스 파일\conf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -88,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>헤더 파일\conf</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,9 +11,22 @@
 #include "Random.h"
 #include "Write.h"
 #include "Greedy.h"
+#include "Config.h"
 using namespace std;
 
 int main(int argc, char** argv) {
+	// Read configs
+	Config config("config.txt");
+	if (config.isConfigExists())
+		cout << "* Read config successfully." << endl;
+	else {
+		if (config.createDefaultConfigs()) {
+			cout << "Failed to create config, abort." << endl;
+			return -1;
+		}
+		cout << "* Config created." << endl;
+	}
+
 	// Read given data file from args
 	string fileName;
 
