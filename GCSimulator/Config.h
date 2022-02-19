@@ -25,6 +25,6 @@ public:
 	bool isConfigExists(void);
 	bool containsConfig(const string&);
 	size_l getSizeL(const string&);
-
+	int getInt(const string&);
 };
 #endif
