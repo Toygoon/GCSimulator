@@ -54,6 +54,15 @@ size_l Config::getSizeL(const string& name) {
 		throw invalid_argument("The config not exists.");
 }
 
+/* Grab a configuration value and return a value with int */
+int Config::getInt(const string& name) {
+	if (this->containsConfig(name))
+		return stoi(this->table[name]);
+	else
+		throw invalid_argument("The config not exists.");
+}
+
+
 int Config::createDefaultConfigs(void) {
 	ofstream file("config.txt");
 	vector<string> config;
@@ -69,6 +78,7 @@ int Config::createDefaultConfigs(void) {
 	config.push_back("# The limit of erasure per cell\n");
 	config.push_back("MAX_ERASURE_LIMIT=1000\n\n");
 	*/
+
 	if (file.is_open()) {
 		// Write default configs
 		for (const auto& e : config)
