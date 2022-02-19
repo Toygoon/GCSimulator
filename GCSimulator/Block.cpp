@@ -8,11 +8,11 @@
 
 Block::Block(int blockNum) {
 	// Initiates new array
-	this->block = new Page[PAGE_COUNT];
+	this->block = new Page[PAGE_SIZE];
 	// Set a block number
 	this->blockNum = blockNum;
 
-	for (int i = 0; i < PAGE_COUNT; i++)
+	for (int i = 0; i < PAGE_SIZE; i++)
 		this->block[i].setPageNum(i);
 }
 
@@ -25,7 +25,7 @@ Page* Block::getBlockPage(void) {
 }
 
 bool Block::hasInvalidPage(void) {
-	for (int i = 0; i < PAGE_COUNT; i++)
+	for (int i = 0; i < PAGE_SIZE; i++)
 		if (this->block[i].getPageStatus() == PageStatus::PAGE_INVALID)
 			return true;
 

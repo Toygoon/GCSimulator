@@ -29,10 +29,10 @@ void Greedy::calcVictims(Storage* s) {
 	// Calculate; invalids
 	for (int i = 0; i < BLOCK_COUNT; i++) {
 		tmp = 0;
-		for (int j = 0; j < PAGE_COUNT; j++)
+		for (int j = 0; j < PAGE_SIZE; j++)
 			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
 				tmp++;
-		tmp /= PAGE_COUNT;
+		tmp /= PAGE_SIZE;
 		// Push it to the tuple
 		this->invalids.push_back({ i, tmp });
 	}
@@ -47,7 +47,7 @@ void Greedy::calcVictims(Storage* s) {
 			// Save current blockNum
 			this->victims.push_back(i);
 
-			for (int j = 0; j < PAGE_COUNT; j++)
+			for (int j = 0; j < PAGE_SIZE; j++)
 				if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_VALID)
 					this->validInVictims->push_back(j);
 		}
@@ -59,12 +59,12 @@ void Greedy::calcVictims(Storage* s) {
 
 void Greedy::calcFreeSpace(Storage* s) {
 	// Tempoary buffer for saving free status of flash storage
-	double* buffer = new double[PAGE_COUNT];
+	double* buffer = new double[PAGE_SIZE];
 	int totalEc;
 
 	for (int i = 0; i < BLOCK_COUNT; i++) {
 		buffer[i] = 0;
-		for (int j = 0; j < PAGE_COUNT; j++) {
+		for (int j = 0; j < PAGE_SIZE; j++) {
 			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_FREE) {
 				buffer[i]++;
 			}
@@ -74,8 +74,8 @@ void Greedy::calcFreeSpace(Storage* s) {
 	// calcFreeSpace calculates the list : freeSpace
 	for (int i = 0; i < BLOCK_COUNT; i++) {
 		totalEc = 0;
-		if (buffer[i] == PAGE_COUNT) {
-			for (int j = 0; j < PAGE_COUNT; j++)
+		if (buffer[i] == PAGE_SIZE) {
+			for (int j = 0; j < PAGE_SIZE; j++)
 				totalEc += s->getBlock(i)->getBlockPage()[j].getEraseCount();
 			this->freeBlocks.push_back({ i, totalEc });
 		}
@@ -120,8 +120,8 @@ void Greedy::greedyMain(Storage** s) {
 		victimBlockNum = victims.at(i);
 		cout << "Victim block " << victimBlockNum << " has selected." << endl;
 
-		systemBuffer = new Page[PAGE_COUNT];
-		for (int j = 0; j < PAGE_COUNT; j++) {
+		systemBuffer = new Page[PAGE_SIZE];
+		for (int j = 0; j < PAGE_SIZE; j++) {
 			/* Read all data in the segment into a system buffer; */
 			// memcpy(systemBuffer, (*s)->getBlock(victimNum), sizeof(Block)); // not working memcpy -> TODO: use copy constuctor later
 			systemBuffer[j].setData((*s)->getBlock(victimBlockNum)->getBlockPage()[j].getData());
@@ -138,7 +138,7 @@ void Greedy::greedyMain(Storage** s) {
 
 		/* Write back all data from system buffer to segment; */
 		cout << "Writing buffer into the " << freeBlockNum << " block." << endl;
-		for (int j = 0; j < PAGE_COUNT; j++)
+		for (int j = 0; j < PAGE_SIZE; j++)
 			// Copy only valid pages to the free block
 			if (!(systemBuffer[j].getPageStatus() == PageStatus::PAGE_INVALID))
 			(*s)->getBlock(freeBlockNum)->getBlockPage()[j].setData(systemBuffer[j].getData());

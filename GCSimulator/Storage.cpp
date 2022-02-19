@@ -7,6 +7,7 @@
 #include "Storage.h"
 
 Storage::Storage() {
+
 	for (int i = 0; i < BLOCK_COUNT; i++)
 		this->blocks.push_back(new Block(i));
 }
@@ -26,21 +27,23 @@ void Storage::setBlock(int blockNum, Block* p) {
 void Storage::printStat(void) {
 	cout << "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl
 		<< "[STAT] Total blocks : " << BLOCK_COUNT << endl
-		<< "[STAT] Pages in a block : " << PAGE_COUNT << endl;
+		<< "[STAT] Pages in a block : " << PAGE_SIZE << endl;
 
 	double currentAvg = 0;
+	// Disabled for now
+	/*
 	for (int i = 0; i < BLOCK_COUNT; i++) {
 		currentAvg = 0;
 		// Set fixed numbers
 		cout.precision(4);
 		
-		for (int j = 0; j < PAGE_COUNT; j++) {
+		for (int j = 0; j < PAGE_SIZE; j++) {
 			// setw(2) is same as printf("%2d");
 			cout << "[BLCK] "
 				// prints current block
 				<< setw(to_string(BLOCK_COUNT).length()) << i << "b " 
 				// prints current page
-				<< setw(to_string(PAGE_COUNT).length()) << j << "p, "
+				<< setw(to_string(PAGE_SIZE).length()) << j << "p, "
 				// prints current erase count
 				<< "ec : " << setw(to_string(MAX_ERASURE_LIMIT).length()) << this->getBlock(i)->getBlockPage()[j].getEraseCount()
 				// prints current page status
@@ -49,6 +52,7 @@ void Storage::printStat(void) {
 				<< ", Data : " << this->getBlock(i)->getBlockPage()[j].getData() << endl;
 		}
 	}
+	*/
 }
 
 void Storage::formatData(int start, int end) {
@@ -60,6 +64,6 @@ void Storage::formatData(int start, int end) {
 	// The block of start <= _RANGE_ <= end will be deleted
 	// Just deletes all data, and make all cells free
 	for (int i = start; i <= end; i++)
-		for (int j = 0; j < PAGE_COUNT; j++)
+		for (int j = 0; j < PAGE_SIZE; j++)
 			this->getBlock(i)->getBlockPage()[j].formatPage();
 }

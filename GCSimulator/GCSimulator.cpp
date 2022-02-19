@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
 				cout << "Invalid values." << endl;
 			}
 
-			if (0 <= block && block <= BLOCK_COUNT && 0 <= page && page <= PAGE_COUNT) {
+			if (0 <= block && block <= BLOCK_COUNT && 0 <= page && page <= PAGE_SIZE) {
 				cout << "Block " << block << ", Page " << page << " : "
 					<< storage->getBlock(block)->getBlockPage()[page].getData() << endl;
 			}
@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
 
 			// Write data to cell
 			int times, max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText(fileName).length()
-				/ ((range[1] - range[0]) * PAGE_COUNT * MAX_LENGTH)));
+				/ ((range[1] - range[0]) * PAGE_SIZE * MAX_LENGTH)));
 
 			// Calculate max times of writing
 			cout << "How many times do you want to write? (Max : " << max << ")" << endl

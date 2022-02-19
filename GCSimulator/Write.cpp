@@ -67,7 +67,7 @@ void writeText(Storage** s, int times, int* range, string fileName) {
 	// Recalculate block counts
 	const int block_count = range[1] - range[0];
 
-	int totalPages = block_count * PAGE_COUNT, totalTimes = data.length() / totalPages, currentPos = 0, currentBlock = range[0], currentPage = 0;
+	int totalPages = block_count * PAGE_SIZE, totalTimes = data.length() / totalPages, currentPos = 0, currentBlock = range[0], currentPage = 0;
 
 	// Write data into the cell separately
 	while (currentPos + MAX_LENGTH <= data.length()) {
@@ -85,7 +85,7 @@ void writeText(Storage** s, int times, int* range, string fileName) {
 
 		// It works like the circular queue
 		// When page count exceeds the limits, increase the current block number
-		if (currentPage == PAGE_COUNT) {
+		if (currentPage == PAGE_SIZE) {
 			currentPage = 0;
 			currentBlock++;
 
@@ -97,12 +97,12 @@ void writeText(Storage** s, int times, int* range, string fileName) {
 	cout << "Writing done at " << currentBlock << "b, " << currentPage << "p." << endl << endl;
 
 	// Make another page invalid
-	for (int i = currentPage + 1; i < PAGE_COUNT; i++)
+	for (int i = currentPage + 1; i < PAGE_SIZE; i++)
 		(*s)->getBlock(currentBlock)->getBlockPage()[i].setPageStatus(PageStatus::PAGE_INVALID);
 
 	if (currentBlock + 1 <= range[1]) {
 		for (int i = currentBlock + 1; i <= range[1]; i++) {
-			for (int j = 0; j < PAGE_COUNT; j++) {
+			for (int j = 0; j < PAGE_SIZE; j++) {
 				(*s)->getBlock(i)->getBlockPage()[j].setPageStatus(PageStatus::PAGE_INVALID);
 			}
 		}

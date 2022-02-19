@@ -15,7 +15,7 @@ void writeRandom(Storage** s) {
 	}
 
 	for (int i = 0; i < BLOCK_COUNT; i++) {
-		for (int j = 0; j < PAGE_COUNT; j++) {
+		for (int j = 0; j < PAGE_SIZE; j++) {
 			string data =  ( * s)->getBlock(i)->getBlockPage()[j].getData();
 			for (int k = 0; k < random_nums.at(j); k++)
 				(*s)->getBlock(i)->getBlockPage()[j].setData(data);

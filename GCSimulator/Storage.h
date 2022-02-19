@@ -16,6 +16,7 @@ using namespace std;
 
 class Storage {
 private:
+	size_l flashSizeBytes;
 	vector<Block*> blocks;
 public:
 	Storage(void);

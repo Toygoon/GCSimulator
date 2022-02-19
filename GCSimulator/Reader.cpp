@@ -13,7 +13,7 @@ int readData(Storage* s, bool isBlock) {
 	}
 	else {
 		info += "page do you want to read ? (Total ";
-		info += to_string(PAGE_COUNT);
+		info += to_string(PAGE_SIZE);
 		info += " pages)\n";
 	}
 	info += "Type \"abort\" to abort.\n";
