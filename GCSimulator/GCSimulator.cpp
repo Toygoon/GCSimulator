@@ -18,29 +18,24 @@ int main(int argc, char** argv) {
 	// Read configs
 	Config config("config.txt");
 	if (config.isConfigExists())
-		cout << "* Read config successfully." << endl;
+		cout << "* Read configs successfully. " << endl;
 	else {
 		if (config.createDefaultConfigs()) {
-			cout << "Failed to create config, abort." << endl;
+			cout << "* Failed to create config, abort." << endl;
 			return -1;
 		}
 		cout << "* Config created." << endl;
+		// Initiate again
+		config = Config("config.txt");
 	}
 
 	// Read given data file from args
-	string fileName;
+	string fileName = config.getString("DATA_FILE");
 
-	if (argc > 1) {
-		cout << "* Input file : " << argv[1] << endl;
-		fileName.push_back(*argv[1]);
-	}
-	else {
-		cout << "* Input file : data.txt (No input file selected)" << endl;
-		fileName = "data.txt";
-	}
+	cout << "* Input file : " << fileName << endl;
 
 	// Initalize new flash storage
-	Storage* storage = new Storage();
+	Storage* storage = new Storage(&config);
 
 	string input = "", p = "", b = "";
 	int block = -1, page = -1;
@@ -59,7 +54,7 @@ int main(int argc, char** argv) {
 			// Free the memory status
 			delete(storage);
 			// Initalize new storage pointer
-			storage = new Storage();
+			storage = new Storage(&config);
 			cout << "Reset complete." << endl << endl;
 		}
 		else if (input.compare("status") == 0) {

@@ -5,9 +5,14 @@
  */
 
 #include "Storage.h"
+#include <climits>
 
-Storage::Storage() {
+Storage::Storage(Config* config) {
 	// Set flashSizes
+	this->flashSizeBytes = config->getSizeL("FLASH_STORAGE_SIZE") * 1024 * 1024 * 1024;
+	this->totalPageCount = this->flashSizeBytes / PAGE_SIZE;
+	this->totalBlockCount = this->totalPageCount / PAGES_PER_BLOCK;
+
 	for (int i = 0; i < PAGES_PER_BLOCK; i++)
 		this->blocks.push_back(new Block(i));
 }
@@ -25,9 +30,9 @@ void Storage::setBlock(int blockNum, Block* p) {
 }
 
 void Storage::printStat(void) {
-	cout << "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl
+	cout << "[STAT] Page size : " << PAGE_SIZE << " Bytes" << endl
 		<< "[STAT] Total blocks : " << PAGES_PER_BLOCK << endl
-		<< "[STAT] Pages in a block : " << PAGE_SIZE << endl;
+		<< "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl;
 
 	double currentAvg = 0;
 	// Disabled for now

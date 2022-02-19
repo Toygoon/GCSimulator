@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <algorithm>
 #include "Block.h"
+#include "Config.h"
 #include "PageStatus.h"
 using namespace std;
 
@@ -21,7 +22,7 @@ private:
 	size_l totalPageCount;
 	vector<Block*> blocks;
 public:
-	Storage(void);
+	Storage(Config*);
 	Storage(const Storage&);
 	Block* getBlock(int);
 	void setBlock(int, Block*);

@@ -26,5 +26,6 @@ public:
 	bool containsConfig(const string&);
 	size_l getSizeL(const string&);
 	int getInt(const string&);
+	string getString(const string&);
 };
 #endif

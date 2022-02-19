@@ -26,7 +26,7 @@ Config::Config(const string& fileName) {
 			string token1 = line.substr(0, line.find(delim));
 			// token2 : configuration set value
 			string token2 = line.substr(line.find(delim) + delim.length(), line.length());
-			
+
 			// Add a config with current line (index)
 			this->table[token1] = token2;
 		}
@@ -67,10 +67,11 @@ int Config::createDefaultConfigs(void) {
 	ofstream file("config.txt");
 	vector<string> config;
 
+	config.push_back("FLASH_STORAGE_SIZE=128\n");
+	config.push_back("DATA_FILE=data.txt\n");
+
 	// Config contents
 	/*
-	config.push_back("# Flash storage size in Gigabytes\n");
-	config.push_back("FLASH_STORAGE_SIZE=128\n\n");
 	config.push_back("# The count of each page size in Bytes\n");
 	config.push_back("PAGE_SIZE=4096\n\n");
 	config.push_back("# How many pages in a block\n");
@@ -89,4 +90,16 @@ int Config::createDefaultConfigs(void) {
 	}
 
 	return -1;
+}
+
+string Config::getString(const string& name)
+{
+	if (this->containsConfig(name)) {
+		if (this->table[name].find("\"") == std::string::npos)
+			return this->table[name];
+		else
+			return this->table[name].substr(1, this->table[name].length() - 2);
+	}
+	else
+		throw invalid_argument("The config not exists.");
 }

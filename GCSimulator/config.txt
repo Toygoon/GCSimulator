@@ -1,12 +1,4 @@
-# Flash storage size in Gigabytes
 FLASH_STORAGE_SIZE=128
 
-# The count of each page size in Bytes
-PAGE_SIZE=4096
-
-# How many pages in a block
-PAGES_PER_BLOCK=64
-
-# The limit of erasure per cell
-MAX_ERASURE_LIMIT=1000
+DATA_FILE=data.txt
 

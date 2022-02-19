@@ -20,6 +20,6 @@
 // The limit of erasure per cell
 #define MAX_ERASURE_LIMIT 1000
 
-typedef unsigned long long size_l;
+typedef unsigned long long int size_l;
 
 #endif
