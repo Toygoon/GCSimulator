@@ -152,11 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.hpp" />
-    <ClInclude Include="Config.h" />
+    <ClInclude Include="Config.hpp" />
     <ClInclude Include="Global.hpp" />
     <ClInclude Include="Greedy.hpp" />
     <ClInclude Include="Page.hpp" />
     <ClInclude Include="PageStatus.hpp" />
+    <ClInclude Include="ProgressBar.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Reader.hpp" />
     <ClInclude Include="Storage.hpp" />

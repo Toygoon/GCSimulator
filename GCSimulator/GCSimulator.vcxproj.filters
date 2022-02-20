@@ -98,8 +98,11 @@
     <ClInclude Include="Global.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
+    <ClInclude Include="Config.hpp">
       <Filter>헤더 파일\conf</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.hpp">
+      <Filter>헤더 파일\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
