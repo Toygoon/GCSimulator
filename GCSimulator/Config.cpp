@@ -4,8 +4,8 @@
  * Department of Computer Engineering, Yeungnam University.
  */
 
-#include "Config.h"
-#include "Write.h"
+#include "Config.hpp"
+#include "Write.hpp"
 
 Config::Config(const string& fileName) {
 	// Read file

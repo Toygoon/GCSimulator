@@ -1,4 +1,4 @@
-#include "Random.h"
+#include "Random.hpp"
 
 void writeRandom(Storage** s) {
 	// Random initialize

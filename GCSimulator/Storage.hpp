@@ -10,9 +10,9 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
-#include "Block.h"
-#include "Config.h"
-#include "PageStatus.h"
+#include "Block.hpp"
+#include "Config.hpp"
+#include "PageStatus.hpp"
 using namespace std;
 
 class Storage {

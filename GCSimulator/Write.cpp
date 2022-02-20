@@ -4,7 +4,7 @@
  * Department of Computer Engineering, Yeungnam University.
  */
 
-#include "Write.h"
+#include "Write.hpp"
 
 inline char separator(void) {
 	// Returns file separator

@@ -5,7 +5,7 @@
  * Department of Computer Engineering, Yeungnam University.
  */
 
-#include "Greedy.h"
+#include "Greedy.hpp"
 
 Greedy::Greedy() {
 	// Constructors to initalize values

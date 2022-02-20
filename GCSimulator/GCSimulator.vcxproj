@@ -151,16 +151,16 @@
     <ClCompile Include="Write.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Block.h" />
+    <ClInclude Include="Block.hpp" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="Global.h" />
-    <ClInclude Include="Greedy.h" />
-    <ClInclude Include="Page.h" />
-    <ClInclude Include="PageStatus.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="Reader.h" />
-    <ClInclude Include="Storage.h" />
-    <ClInclude Include="Write.h" />
+    <ClInclude Include="Global.hpp" />
+    <ClInclude Include="Greedy.hpp" />
+    <ClInclude Include="Page.hpp" />
+    <ClInclude Include="PageStatus.hpp" />
+    <ClInclude Include="Random.hpp" />
+    <ClInclude Include="Reader.hpp" />
+    <ClInclude Include="Storage.hpp" />
+    <ClInclude Include="Write.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,11 +7,11 @@
 #include <iostream>
 #include <string>
 #include <random>
-#include "Storage.h"
-#include "Random.h"
-#include "Write.h"
-#include "Greedy.h"
-#include "Config.h"
+#include "Storage.hpp"
+#include "Random.hpp"
+#include "Write.hpp"
+#include "Greedy.hpp"
+#include "Config.hpp"
 using namespace std;
 
 int main(int argc, char** argv) {

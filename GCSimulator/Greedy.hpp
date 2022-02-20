@@ -10,8 +10,8 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
-#include "Write.h"
-#include "Storage.h"
+#include "Write.hpp"
+#include "Storage.hpp"
 using namespace std;
 
 class Greedy {

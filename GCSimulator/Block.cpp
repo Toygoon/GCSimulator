@@ -4,7 +4,7 @@
  * Department of Computer Engineering, Yeungnam University.
  */
 
-#include "Block.h"
+#include "Block.hpp"
 
 Block::Block(int blockNum) {
 	// Initiates new array

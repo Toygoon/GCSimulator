@@ -4,7 +4,7 @@
  * Department of Computer Engineering, Yeungnam University.
  */
 
-#include "PageStatus.h"
+#include "PageStatus.hpp"
 
 string getPageStatusString(PageStatus bs) {
 	if (bs == PageStatus::PAGE_FREE)

@@ -1,7 +1,7 @@
 #ifndef READER
 #define READER
 
-#include "Storage.h"
+#include "Storage.hpp"
 #include <iostream>
 #include <string>
 using namespace std;

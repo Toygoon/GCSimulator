@@ -7,7 +7,7 @@
 #ifndef CONFIG
 #define CONFIG
 
-#include "Global.h"
+#include "Global.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <fstream>

@@ -4,7 +4,7 @@
  * Department of Computer Engineering, Yeungnam University.
  */
 
-#include "Storage.h"
+#include "Storage.hpp"
 #include <climits>
 
 Storage::Storage(Config* config) {

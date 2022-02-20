@@ -10,8 +10,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Page.h"
-#include "Global.h"
+#include "Page.hpp"
+#include "Global.hpp"
 using namespace std;
 
 class Block {

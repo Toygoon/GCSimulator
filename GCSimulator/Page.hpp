@@ -8,8 +8,8 @@
 #define PAGE
 
 #include <iostream>
-#include "Global.h"
-#include "PageStatus.h"
+#include "Global.hpp"
+#include "PageStatus.hpp"
 using namespace std;
 
 class Page {

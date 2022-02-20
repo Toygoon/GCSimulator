@@ -4,7 +4,7 @@
  * Department of Computer Engineering, Yeungnam University.
  */
 
-#include "Page.h"
+#include "Page.hpp"
 
 // Constructor to reset all values
 Page::Page(void) {
