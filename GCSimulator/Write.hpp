@@ -14,6 +14,7 @@
 #include <fstream>
 #include <sstream>
 #include "Storage.hpp"
+#include "ProgressBar.hpp"
 using namespace std;
 
 inline char separator(void);

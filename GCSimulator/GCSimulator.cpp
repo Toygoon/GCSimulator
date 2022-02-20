@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include <ctime>
 #include "Storage.hpp"
 #include "Random.hpp"
 #include "Write.hpp"
@@ -40,6 +41,7 @@ int main(int argc, char** argv) {
 
 	string input = "", p = "", b = "";
 	int block = -1, page = -1;
+	system("cls");
 
 	cout << "* Operations : status, read, write, reset, format, exit" << endl
 		<< "* Garbage Collectors : greedy" << endl << endl;
@@ -90,32 +92,45 @@ int main(int argc, char** argv) {
 		else if (input.compare("write") == 0) {
 			/* range[0] : begin block
 			range[1] : end block */
-			int* range = new int[2];
+			clock_t start;
+			int* range = new int[2], times;
+			range[0] = 0;
+			range[1] = storage->totalBlockCount;
+			
 
 			// Input sequence
-			cout << endl << "Input range of block (begin end). Last block num : " << storage->totalBlockCount << endl
+			/*cout << endl << "Input range of block (begin end). Last block num : " << storage->totalBlockCount << endl
 				<< "Range >>> ";
 			cin >> range[0] >> range[1];
 
 			// Write data to cell
-			int times, max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText(fileName).length()
-				/ ((range[1] - range[0]) * PAGE_SIZE * MAX_LENGTH)));
+			int diff = range[1] - range[0];
+			if (range[0] == range[1])
+				diff++;
 
+			int max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText(fileName).length()
+				/ diff * PAGE_SIZE * MAX_LENGTH));
+				*/
+
+			/*
 			// Calculate max times of writing
-			cout << "How many times do you want to write? (Max : " << max << ")" << endl
+			cout << "How many times do you want to write?" << endl
 				<< "Times >>> ";
 			cin >> times;
+			*/
+			times = 1;
 
+			start = clock();
 			// Write text
 			writeText(&storage, times, range, fileName);
-
+			cout << endl << "Writing completed. Elasped time : " << (double)((clock() - start) / CLOCKS_PER_SEC) << " seconds." << endl << endl;
 		}
 		else if (input.compare("greedy") == 0) {
 			Greedy* g = new Greedy();
 			g->greedyMain(&storage);
 		}
 		else if (input.compare("format") == 0) {
-			storage->formatData(0, PAGES_PER_BLOCK - 1);
+			storage->formatData(0, storage->totalBlockCount - 1);
 			cout << "Format completed." << endl << endl;
 		}
 		else {

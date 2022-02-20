@@ -67,7 +67,7 @@ int Config::createDefaultConfigs(void) {
 	ofstream file("config.txt");
 	vector<string> config;
 
-	config.push_back("FLASH_STORAGE_SIZE=128\n");
+	config.push_back("FLASH_STORAGE_SIZE=1\n");
 	config.push_back("DATA_FILE=data.txt\n");
 
 	// Config contents

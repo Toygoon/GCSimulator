@@ -12,7 +12,7 @@ Page::Page(void) {
 	this->eraseCount = 0;
 	this->isDisabled = false;
 	this->accessTime = 0.0;
-	this->data = "a";
+	this->data = "";
 	this->pageStatus = PageStatus::PAGE_FREE;
 }
 
@@ -72,6 +72,13 @@ bool Page::isDisabledPage(void) {
 }
 
 void Page::formatPage(void) {
+	/*
 	this->setData("");
 	this->pageStatus = PageStatus::PAGE_FREE;
+	*/
+
+	// If page is valid, just make it invalid
+	if (this->getPageStatus() == PageStatus::PAGE_VALID)
+		this->pageStatus = PageStatus::PAGE_INVALID;
+
 }

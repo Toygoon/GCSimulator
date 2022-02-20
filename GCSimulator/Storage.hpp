@@ -13,6 +13,7 @@
 #include "Block.hpp"
 #include "Config.hpp"
 #include "PageStatus.hpp"
+#include "ProgressBar.hpp"
 using namespace std;
 
 class Storage {

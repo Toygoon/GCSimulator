@@ -5,8 +5,6 @@
  */
 
 #include "Storage.hpp"
-#include "ProgressBar.hpp"
-#include <climits>
 
 Storage::Storage(Config* config) {
 	// Set flashSizes
@@ -43,41 +41,48 @@ void Storage::setBlock(int blockNum, Block* p) {
 }
 
 void Storage::printStat(void) {
-	cout << "[STAT] Page size : " << PAGE_SIZE << " Bytes" << endl
-		<< "[STAT] Pages per block : " << PAGES_PER_BLOCK << endl
-		<< "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl
-		<< "[STAT] Total blocks : " << this->totalBlockCount << endl
-		<< "[STAT] Total pages : " << this->totalPageCount << endl;
+	cout << "* Storage size : " << this->flashSizeBytes << " Bytes" << endl
+		<< "* Single page size : " << PAGE_SIZE << " Bytes" << endl
+		<< "* Pages per block : " << PAGES_PER_BLOCK << " Pages" << endl
+		<< "* Total blocks : " << this->totalBlockCount << " Blocks" << endl
+		<< "* Total pages : " << this->totalPageCount << " Pages" << endl
+		<< "* Max erasure limit : " << MAX_ERASURE_LIMIT << " times" << endl;
 
+	int pageCurrentStatus[3] = { 0, 0, 0 };
 
-	// Disabled for now
 	for (int i = 0; i < this->totalBlockCount; i++) {
-		int pageCurrentStatus[3] = { 0, 0, 0 };
-		// Set fixed numbers
-		cout.precision(4);
-
 		for (int j = 0; j < PAGES_PER_BLOCK; j++) {
-			if (this->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_VALID)
+			switch (this->getBlock(i)->getPage()[j].getPageStatus()) {
+			case PageStatus::PAGE_VALID:
 				pageCurrentStatus[0]++;
-			if (this->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
+				break;
+			case PageStatus::PAGE_INVALID:
 				pageCurrentStatus[1]++;
-			if (this->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_FREE)
+				break;
+			case PageStatus::PAGE_FREE:
 				pageCurrentStatus[2]++;
-			//cout << ", Data : " << this->getBlock(i)->getPage()[j].getData() << endl;
+				break;
+			}
 		}
-
 	}
+
+	cout << endl
+		<< "* Valid pages : " << pageCurrentStatus[0] << endl
+		<< "* Invalid pages : " << pageCurrentStatus[1] << endl
+		<< "* Free pages : " << pageCurrentStatus[2] << endl;
 }
 
 void Storage::formatData(int start, int end) {
+	/*
 	if (start > PAGES_PER_BLOCK || end > PAGES_PER_BLOCK || start < 0 || end < 0) {
 		cout << "Parameter error; formatData(" << start << ", " << end << ")" << endl;
 		return;
 	}
+	*/
 
 	// The block of start <= _RANGE_ <= end will be deleted
 	// Just deletes all data, and make all cells free
 	for (int i = start; i <= end; i++)
-		for (int j = 0; j < PAGE_SIZE; j++)
+		for (int j = 0; j < PAGES_PER_BLOCK; j++)
 			this->getBlock(i)->getPage()[j].formatPage();
 }

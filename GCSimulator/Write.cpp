@@ -49,15 +49,17 @@ string getString(string s, int a) {
 
 void writeText(Storage** s, int times, int* range, string fileName) {
 	// Valid status check
+	/*
 	for (int i = range[0]; i <= range[1]; i++) {
 		if ((*s)->getBlock(i)->hasInvalidPage()) {
 			cout << "Block " << i << " has an invalid page. Do the gc first." << endl;
 			return;
 		}
 	}
+	*/
 
 	// Read data
-	string data = "";
+	string data = "", tmp;
 
 	// Make text many times
 	const string readData = readText(fileName);
@@ -65,10 +67,49 @@ void writeText(Storage** s, int times, int* range, string fileName) {
 		data += readData;
 
 	// Recalculate block counts
-	const int block_count = range[1] - range[0];
+	int block_count = range[1] - range[0];
 
-	int totalPages = block_count * PAGE_SIZE, totalTimes = data.length() / totalPages, currentPos = 0, currentBlock = range[0], currentPage = 0;
+	// If user want to write data in a single block
+	if (range[0] == range[1])
+		block_count++;
 
+	int totalPages = block_count * PAGE_SIZE, totalTimes = data.length() / totalPages, currentPos = 0;
+	bool isDone = false;
+
+	// For percentage
+	progressbar bar(100);
+	int percent = -1;
+	double pertmp;
+
+	// Write texts (with pages)
+	for (int currentBlock = range[0]; currentBlock <= range[1]; currentBlock++) {
+		for (int currentPage = 0; currentPage < PAGES_PER_BLOCK; currentPage++) {
+			pertmp = (currentPos + 1.0) / (data.length() + 1.0) * 100;
+			if ((int)pertmp != percent) {
+				percent++;
+				bar.update();
+			}
+
+			if (isDone)
+				break;
+
+			if (currentPos + MAX_LENGTH > data.length()) {
+				tmp = data.substr(currentPos);
+				isDone = true;
+			}
+			else {
+				tmp = data.substr(currentPos, currentPos + MAX_LENGTH);
+				currentPos += MAX_LENGTH;
+			}
+
+			(*s)->getBlock(currentBlock)->getPage()[currentPage].setData(tmp);
+		}
+
+		if (isDone)
+			break;
+	}
+
+	/*
 	// Write data into the cell separately
 	while (currentPos + MAX_LENGTH <= data.length()) {
 		string tmp = getString(data, currentPos);
@@ -107,4 +148,5 @@ void writeText(Storage** s, int times, int* range, string fileName) {
 			}
 		}
 	}
+	*/
 }
