@@ -21,5 +21,6 @@ inline char separator(void);
 string readText(string);
 string getString(string, int);
 void writeText(Storage**, bool, int*, string);
+int* selectBlocks(Storage*);
 
 #endif

@@ -114,3 +114,22 @@ void writeText(Storage** s, bool fillFull, int* range, string fileName) {
 			break;
 	}
 }
+
+int* selectBlocks(Storage* s) {
+	int* range = new int[2];
+	range[0] = 0;
+	range[1] = s->totalBlockCount;
+	
+	for (int i = 0; i < s->totalBlockCount; i++) {
+		if (s->getBlock(i)->getPage()[0].getPageStatus() == PageStatus::PAGE_FREE) {
+			range[0] = i;
+			break;
+		}
+	}
+	if (range[0] == range[1]) {
+		cout << "There are no blocks to write." << endl << endl;
+		return NULL;
+	}
+
+	return range;
+}

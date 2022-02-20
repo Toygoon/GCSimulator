@@ -43,8 +43,7 @@ int main(int argc, char** argv) {
 	int block = -1, page = -1;
 	system("cls");
 
-	cout << "* Operations : status, read, write, reset, format, exit" << endl
-		<< "* Garbage Collectors : greedy" << endl << endl;
+	cout << "* Operations : status, read, write, reset, format, gc, exit" << endl << endl;
 
 	while (true) {
 		cout << ">>> ";
@@ -90,35 +89,14 @@ int main(int argc, char** argv) {
 			cout << endl;
 		}
 		else if (input.compare("write") == 0) {
-			/* range[0] : begin block
-			range[1] : end block */
 			clock_t start;
-			int* range = new int[2], times;
-			range[0] = 0;
-			range[1] = storage->totalBlockCount;
-			
-			// Input sequence
-			/*cout << endl << "Input range of block (begin end). Last block num : " << storage->totalBlockCount << endl
-				<< "Range >>> ";
-			cin >> range[0] >> range[1];
-
-			// Write data to cell
-			int diff = range[1] - range[0];
-			if (range[0] == range[1])
-				diff++;
-
-				*/
-
-			/*
-			// Calculate max times of writing
-			cout << "How many times do you want to write?" << endl
-				<< "Times >>> ";
-			cin >> times;
-			*/
-
-			bool fillFull = true;
+			bool fillFull = config.getString("FULL_WRITE") == "TRUE" ? true : false;
 
 			start = clock();
+			/* range[0] : begin block
+			range[1] : end block */
+			int *range = selectBlocks(storage);
+			cout << range[0] << endl << range[1] << endl;
 			// Write text
 			writeText(&storage, false, range, fileName);
 			cout << endl << "Writing completed. Elasped time : " << (double)((clock() - start) / CLOCKS_PER_SEC) << " seconds." << endl << endl;
