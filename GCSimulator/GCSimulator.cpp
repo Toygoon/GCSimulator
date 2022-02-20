@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 	// Read configs
 	Config config("config.txt");
 	if (config.isConfigExists()) {
-		//cout << "* Read configs successfully. " << endl;
+		cout << "* Read configs successfully. " << endl;
 	}
 	else {
 		if (config.createDefaultConfigs()) {
@@ -34,8 +34,9 @@ int main(int argc, char** argv) {
 	// Read given data file from args
 	string fileName = config.getString("DATA_FILE");
 
-	//cout << "* Input file : " << fileName << endl;
+	cout << "* Input file : " << fileName << endl;
 
+	cout << "* Initiating storage" << endl;
 	// Initalize new flash storage
 	Storage* storage = new Storage(&config);
 
