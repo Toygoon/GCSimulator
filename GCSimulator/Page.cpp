@@ -16,6 +16,10 @@ Page::Page(void) {
 	this->pageStatus = PageStatus::PAGE_FREE;
 }
 
+Page::~Page(void) {
+	delete data;
+}
+
 void Page::setPageNum(int pageNum) {
 	this->pageNum = pageNum;
 }
@@ -25,7 +29,7 @@ int Page::setData(string data) {
 	if (this->isDisabledPage())
 		return -1;
 
-	this->data = data;
+	this->data = data.c_str();
 	eraseCount++;
 
 	// If the page is going to be disabled next time, make it disabled writing

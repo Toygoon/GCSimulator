@@ -26,11 +26,12 @@ private:
 	int eraseCount;
 	bool isDisabled;
 	double accessTime;
-	string data;
+	const char* data;
 	PageStatus pageStatus;
 
 public:
 	Page(void);
+	~Page(void);
 	void setPageNum(int);
 	int setData(string);
 	void setPageStatus(PageStatus);
