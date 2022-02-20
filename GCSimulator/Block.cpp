@@ -16,6 +16,10 @@ Block::Block(int blockNum) {
 		this->block[i].setPageNum(i);
 }
 
+Block::~Block(void) {
+	delete block;
+}
+
 int Block::getBlockNum(void) {
 	return this->blockNum;
 }

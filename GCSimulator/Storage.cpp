@@ -32,6 +32,11 @@ Storage::Storage(const Storage& copy) : blocks(copy.blocks) {
 	// Copy Constructor
 }
 
+Storage::~Storage(void) {
+	for (int i = 0; i < this->blocks.size(); i++)
+		delete blocks[i];
+}
+
 Block* Storage::getBlock(int blockNum) {
 	return blocks.at(blockNum);
 }

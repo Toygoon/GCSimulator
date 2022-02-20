@@ -30,7 +30,7 @@ private:
 	PageStatus pageStatus;
 
 public:
-	Page();
+	Page(void);
 	void setPageNum(int);
 	int setData(string);
 	void setPageStatus(PageStatus);

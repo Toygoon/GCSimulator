@@ -99,6 +99,7 @@ int main(int argc, char** argv) {
 			cout << range[0] << endl << range[1] << endl;
 			// Write text
 			writeText(&storage, false, range, fileName);
+			delete[] range;
 			cout << endl << "Writing completed. Elasped time : " << (double)((clock() - start) / CLOCKS_PER_SEC) << " seconds." << endl << endl;
 		}
 		else if (input.compare("greedy") == 0) {

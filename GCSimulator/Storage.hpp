@@ -23,8 +23,10 @@ public:
 	size_l flashSizeBytes;
 	size_l totalBlockCount;
 	size_l totalPageCount;
+
 	Storage(Config*);
 	Storage(const Storage&);
+	~Storage(void);
 	Block* getBlock(int);
 	void setBlock(int, Block*);
 	void printStat(void);
