@@ -1,4 +1,0 @@
-FLASH_STORAGE_SIZE=128
-
-DATA_FILE=data.txt
-
