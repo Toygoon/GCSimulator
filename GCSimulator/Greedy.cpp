@@ -22,32 +22,33 @@ static bool cmpEraseCount(pair<int, int>& v1, pair<int, int>& v2) {
 }
 
 void Greedy::calcVictims(Storage* s) {
+	const int totalBlocks = s->totalBlockCount;
 	// Temporary value for saving percentage
 	double tmp;
 
 	// calcInvalids calculates the list : invalids, victims
 	// Calculate; invalids
-	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
+	for (int i = 0; i < totalBlocks; i++) {
 		tmp = 0;
-		for (int j = 0; j < PAGE_SIZE; j++)
+		for (int j = 0; j < PAGES_PER_BLOCK; j++)
 			if (s->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
 				tmp++;
-		tmp /= PAGE_SIZE;
+		tmp /= PAGES_PER_BLOCK;
 		// Push it to the tuple
 		this->invalids.push_back({ i, tmp });
 	}
 
 	// Calculate; victims, validInVictims
-	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
+	for (int i = 0; i < totalBlocks; i++) {
 		// Find out valid pages, victims
 		// 1 : all pages are invalid, so just be deleted
-		// 0.x : needs to work gc.
+		// 0.x : needs to work gc
 		tmp = this->invalids.at(i).second;
 		if (0 < tmp && tmp < 1) {
 			// Save current blockNum
 			this->victims.push_back(i);
 
-			for (int j = 0; j < PAGE_SIZE; j++)
+			for (int j = 0; j < totalBlocks; j++)
 				if (s->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_VALID)
 					this->validInVictims->push_back(j);
 		}
@@ -59,12 +60,13 @@ void Greedy::calcVictims(Storage* s) {
 
 void Greedy::calcFreeSpace(Storage* s) {
 	// Tempoary buffer for saving free status of flash storage
-	double* buffer = new double[PAGE_SIZE];
+	const int totalBlocks = s->totalBlockCount;
+	double* buffer = new double[totalBlocks];
 	int totalEc;
 
-	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
+	for (int i = 0; i < totalBlocks; i++) {
 		buffer[i] = 0;
-		for (int j = 0; j < PAGE_SIZE; j++) {
+		for (int j = 0; j < PAGES_PER_BLOCK; j++) {
 			if (s->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_FREE) {
 				buffer[i]++;
 			}
@@ -72,10 +74,10 @@ void Greedy::calcFreeSpace(Storage* s) {
 	}
 
 	// calcFreeSpace calculates the list : freeSpace
-	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
+	for (int i = 0; i < totalBlocks; i++) {
 		totalEc = 0;
-		if (buffer[i] == PAGE_SIZE) {
-			for (int j = 0; j < PAGE_SIZE; j++)
+		if (buffer[i] == PAGES_PER_BLOCK) {
+			for (int j = 0; j < PAGES_PER_BLOCK; j++)
 				totalEc += s->getBlock(i)->getPage()[j].getEraseCount();
 			this->freeBlocks.push_back({ i, totalEc });
 		}
@@ -99,6 +101,9 @@ void Greedy::greedyMain(Storage** s) {
 	int freeBlocksPos = 0, freeBlockNum, victimBlockNum;
 	Page* systemBuffer;
 
+	// Calculate free spaces
+	this->calcFreeSpace(*s);
+
 	/* Select a victim segment for cleaning;
 	** Identify valid data in the segment; */
 	this->calcVictims(*s);
@@ -106,16 +111,17 @@ void Greedy::greedyMain(Storage** s) {
 	// Just gc
 	this->cleanAllInvalids(s);
 
-	// Calculate free spaces
-	this->calcFreeSpace(*s);
+	cout << "freeBlocks : " << freeBlocks.size() << endl
+		<< "invalids : " << invalids.size() << endl
+		<< "victims : " << victims.size() << endl;
 
 	// Check the page has enough blocks
 	if (freeBlocks.size() == 0) {
-		cout << "There's no free blocks in the storage." << endl;
+		cout << "There's no free blocks in the storage." << endl << endl;
 		return;
 	}
 
-	for (int i = 0; i < this->victims.size(); i++)  {
+	for (int i = 0; i < this->victims.size(); i++) {
 		freeBlockNum = this->freeBlocks.at(freeBlocksPos).first;
 		victimBlockNum = victims.at(i);
 		cout << "Victim block " << victimBlockNum << " has selected." << endl;
@@ -141,7 +147,7 @@ void Greedy::greedyMain(Storage** s) {
 		for (int j = 0; j < PAGE_SIZE; j++)
 			// Copy only valid pages to the free block
 			if (!(systemBuffer[j].getPageStatus() == PageStatus::PAGE_INVALID))
-			(*s)->getBlock(freeBlockNum)->getPage()[j].setData(systemBuffer[j].getData());
+				(*s)->getBlock(freeBlockNum)->getPage()[j].setData(systemBuffer[j].getData());
 
 		freeBlocksPos++;
 		// No more free spaces
@@ -149,5 +155,4 @@ void Greedy::greedyMain(Storage** s) {
 			break;
 	}
 
-	cout << endl;
 }

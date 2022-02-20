@@ -97,9 +97,9 @@ int main(int argc, char** argv) {
 			/* range[0] : begin block
 			range[1] : end block */
 			int *range = selectBlocks(storage);
-			cout << range[0] << endl << range[1] << endl;
 			// Write text
-			writeText(&storage, false, range, fileName);
+			cout << "* Writing text starting block " << range[0] << endl;
+			writeText(&storage, fillFull, range, fileName);
 			delete[] range;
 			cout << endl << "Writing completed. Elasped time : " << (double)((clock() - start) / CLOCKS_PER_SEC) << " seconds." << endl << endl;
 		}

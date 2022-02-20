@@ -39,6 +39,7 @@ private:
 	void cleanAllInvalids(Storage**);
 public:
 	Greedy();
+	~Greedy();
 	void greedyMain(Storage**);
 };
 
