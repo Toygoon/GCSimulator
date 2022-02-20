@@ -17,11 +17,11 @@ using namespace std;
 
 class Storage {
 private:
+	vector<Block*> blocks;
+public:
 	size_l flashSizeBytes;
 	size_l totalBlockCount;
 	size_l totalPageCount;
-	vector<Block*> blocks;
-public:
 	Storage(Config*);
 	Storage(const Storage&);
 	Block* getBlock(int);

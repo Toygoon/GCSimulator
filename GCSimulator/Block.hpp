@@ -26,7 +26,7 @@ private:
 public:
 	Block(int);
 	int getBlockNum(void);
-	Page* getBlockPage(void);
+	Page* getPage(void);
 	bool hasInvalidPage(void);
 };
 

@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
 
 			if (0 <= block && block <= PAGES_PER_BLOCK && 0 <= page && page <= PAGE_SIZE) {
 				cout << "Block " << block << ", Page " << page << " : "
-					<< storage->getBlock(block)->getBlockPage()[page].getData() << endl;
+					<< storage->getBlock(block)->getPage()[page].getData() << endl;
 			}
 			else {
 				cout << "Invalid indexes." << endl;
@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
 			int* range = new int[2];
 
 			// Input sequence
-			cout << endl << "Input range of block (begin end). Last block num : " << PAGES_PER_BLOCK - 1 << endl
+			cout << endl << "Input range of block (begin end). Last block num : " << storage->totalBlockCount << endl
 				<< "Range >>> ";
 			cin >> range[0] >> range[1];
 

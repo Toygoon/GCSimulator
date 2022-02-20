@@ -5,6 +5,7 @@
  */
 
 #include "Storage.hpp"
+#include "ProgressBar.hpp"
 #include <climits>
 
 Storage::Storage(Config* config) {
@@ -13,8 +14,20 @@ Storage::Storage(Config* config) {
 	this->totalPageCount = this->flashSizeBytes / PAGE_SIZE;
 	this->totalBlockCount = this->totalPageCount / PAGES_PER_BLOCK;
 
-	for (int i = 0; i < PAGES_PER_BLOCK; i++)
-		this->blocks.push_back(new Block(i));
+	progressbar bar(100);
+	blocks = vector<Block*>(this->totalBlockCount);
+	int percent = -1;
+	double tmp;
+	cout << "* Initiating Flash Storage" << endl;
+	for (int i = 0; i < this->totalBlockCount; i++) {
+		tmp = (i / (double) this->totalBlockCount) * 100;
+		if ((int)tmp != percent) {
+			bar.update();
+			percent++;
+		}
+		blocks.at(i) = new Block(i);
+	}
+	cout << endl;
 }
 
 Storage::Storage(const Storage& copy) : blocks(copy.blocks) {
@@ -31,33 +44,27 @@ void Storage::setBlock(int blockNum, Block* p) {
 
 void Storage::printStat(void) {
 	cout << "[STAT] Page size : " << PAGE_SIZE << " Bytes" << endl
-		<< "[STAT] Total blocks : " << PAGES_PER_BLOCK << endl
-		<< "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl;
+		<< "[STAT] Pages per block : " << PAGES_PER_BLOCK << endl
+		<< "[STAT] Max erasure limit : " << MAX_ERASURE_LIMIT << endl
+		<< "[STAT] Total blocks : " << this->totalBlockCount << endl
+		<< "[STAT] Total pages : " << this->totalPageCount << endl;
 
-	double currentAvg = 0;
+
 	// Disabled for now
-	/*
-	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
-		currentAvg = 0;
+	for (int i = 0; i < this->totalBlockCount; i++) {
+		int pageCurrentStatus[3] = { 0, 0, 0 };
 		// Set fixed numbers
 		cout.precision(4);
-		
-		for (int j = 0; j < PAGE_SIZE; j++) {
-			// setw(2) is same as printf("%2d");
-			cout << "[BLCK] "
-				// prints current block
-				<< setw(to_string(PAGES_PER_BLOCK).length()) << i << "b " 
-				// prints current page
-				<< setw(to_string(PAGE_SIZE).length()) << j << "p, "
-				// prints current erase count
-				<< "ec : " << setw(to_string(MAX_ERASURE_LIMIT).length()) << this->getBlock(i)->getBlockPage()[j].getEraseCount()
-				// prints current page status
-				<< ", " << setw(getPageStatusString(PageStatus::PAGE_INVALID).length()) << getPageStatusString(this->getBlock(i)->getBlockPage()[j].getPageStatus())
-				// prints current data
-				<< ", Data : " << this->getBlock(i)->getBlockPage()[j].getData() << endl;
+
+		for (int j = 0; j < PAGES_PER_BLOCK; j++) {
+			if (this->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_VALID)
+				pageCurrentStatus[0]++;
+			if (this->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
+				pageCurrentStatus[1]++;
+			if (this->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_FREE)
+				pageCurrentStatus[2]++;
 		}
 	}
-	*/
 }
 
 void Storage::formatData(int start, int end) {
@@ -70,5 +77,5 @@ void Storage::formatData(int start, int end) {
 	// Just deletes all data, and make all cells free
 	for (int i = start; i <= end; i++)
 		for (int j = 0; j < PAGE_SIZE; j++)
-			this->getBlock(i)->getBlockPage()[j].formatPage();
+			this->getBlock(i)->getPage()[j].formatPage();
 }

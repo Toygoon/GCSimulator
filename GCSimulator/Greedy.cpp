@@ -30,7 +30,7 @@ void Greedy::calcVictims(Storage* s) {
 	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
 		tmp = 0;
 		for (int j = 0; j < PAGE_SIZE; j++)
-			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
+			if (s->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_INVALID)
 				tmp++;
 		tmp /= PAGE_SIZE;
 		// Push it to the tuple
@@ -48,7 +48,7 @@ void Greedy::calcVictims(Storage* s) {
 			this->victims.push_back(i);
 
 			for (int j = 0; j < PAGE_SIZE; j++)
-				if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_VALID)
+				if (s->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_VALID)
 					this->validInVictims->push_back(j);
 		}
 	}
@@ -65,7 +65,7 @@ void Greedy::calcFreeSpace(Storage* s) {
 	for (int i = 0; i < PAGES_PER_BLOCK; i++) {
 		buffer[i] = 0;
 		for (int j = 0; j < PAGE_SIZE; j++) {
-			if (s->getBlock(i)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_FREE) {
+			if (s->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_FREE) {
 				buffer[i]++;
 			}
 		}
@@ -76,7 +76,7 @@ void Greedy::calcFreeSpace(Storage* s) {
 		totalEc = 0;
 		if (buffer[i] == PAGE_SIZE) {
 			for (int j = 0; j < PAGE_SIZE; j++)
-				totalEc += s->getBlock(i)->getBlockPage()[j].getEraseCount();
+				totalEc += s->getBlock(i)->getPage()[j].getEraseCount();
 			this->freeBlocks.push_back({ i, totalEc });
 		}
 	}
@@ -124,10 +124,10 @@ void Greedy::greedyMain(Storage** s) {
 		for (int j = 0; j < PAGE_SIZE; j++) {
 			/* Read all data in the segment into a system buffer; */
 			// memcpy(systemBuffer, (*s)->getBlock(victimNum), sizeof(Block)); // not working memcpy -> TODO: use copy constuctor later
-			systemBuffer[j].setData((*s)->getBlock(victimBlockNum)->getBlockPage()[j].getData());
+			systemBuffer[j].setData((*s)->getBlock(victimBlockNum)->getPage()[j].getData());
 
 			/* Update data in the system buffer; */
-			if ((*s)->getBlock(victimBlockNum)->getBlockPage()[j].getPageStatus() == PageStatus::PAGE_INVALID) {
+			if ((*s)->getBlock(victimBlockNum)->getPage()[j].getPageStatus() == PageStatus::PAGE_INVALID) {
 				systemBuffer[j].formatPage();
 				systemBuffer[j].setPageStatus(PageStatus::PAGE_INVALID);
 			}
@@ -141,7 +141,7 @@ void Greedy::greedyMain(Storage** s) {
 		for (int j = 0; j < PAGE_SIZE; j++)
 			// Copy only valid pages to the free block
 			if (!(systemBuffer[j].getPageStatus() == PageStatus::PAGE_INVALID))
-			(*s)->getBlock(freeBlockNum)->getBlockPage()[j].setData(systemBuffer[j].getData());
+			(*s)->getBlock(freeBlockNum)->getPage()[j].setData(systemBuffer[j].getData());
 
 		freeBlocksPos++;
 		// No more free spaces

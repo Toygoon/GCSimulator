@@ -74,7 +74,7 @@ void writeText(Storage** s, int times, int* range, string fileName) {
 		string tmp = getString(data, currentPos);
 
 		// Set a data
-		int res = (*s)->getBlock(currentBlock)->getBlockPage()[currentPage].setData(tmp);
+		int res = (*s)->getBlock(currentBlock)->getPage()[currentPage].setData(tmp);
 
 		if (res == -1) {
 			cout << "Failed to write data, canceled. " << currentBlock << "p, " << currentPage << "b." << endl;
@@ -98,12 +98,12 @@ void writeText(Storage** s, int times, int* range, string fileName) {
 
 	// Make another page invalid
 	for (int i = currentPage + 1; i < PAGE_SIZE; i++)
-		(*s)->getBlock(currentBlock)->getBlockPage()[i].setPageStatus(PageStatus::PAGE_INVALID);
+		(*s)->getBlock(currentBlock)->getPage()[i].setPageStatus(PageStatus::PAGE_INVALID);
 
 	if (currentBlock + 1 <= range[1]) {
 		for (int i = currentBlock + 1; i <= range[1]; i++) {
 			for (int j = 0; j < PAGE_SIZE; j++) {
-				(*s)->getBlock(i)->getBlockPage()[j].setPageStatus(PageStatus::PAGE_INVALID);
+				(*s)->getBlock(i)->getPage()[j].setPageStatus(PageStatus::PAGE_INVALID);
 			}
 		}
 	}
