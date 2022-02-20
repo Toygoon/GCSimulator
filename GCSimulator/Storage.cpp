@@ -18,7 +18,7 @@ Storage::Storage(Config* config) {
 	blocks = vector<Block*>(this->totalBlockCount);
 	int percent = -1;
 	double tmp;
-	cout << "* Initiating Flash Storage" << endl;
+	//cout << "* Initiating Flash Storage" << endl;
 	for (int i = 0; i < this->totalBlockCount; i++) {
 		tmp = (i / (double) this->totalBlockCount) * 100;
 		if ((int)tmp != percent) {
@@ -63,7 +63,9 @@ void Storage::printStat(void) {
 				pageCurrentStatus[1]++;
 			if (this->getBlock(i)->getPage()[j].getPageStatus() == PageStatus::PAGE_FREE)
 				pageCurrentStatus[2]++;
+			//cout << ", Data : " << this->getBlock(i)->getPage()[j].getData() << endl;
 		}
+
 	}
 }
 

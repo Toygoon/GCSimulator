@@ -12,7 +12,7 @@ Page::Page(void) {
 	this->eraseCount = 0;
 	this->isDisabled = false;
 	this->accessTime = 0.0;
-	this->data = "";
+	this->data = "a";
 	this->pageStatus = PageStatus::PAGE_FREE;
 }
 

@@ -17,8 +17,9 @@ using namespace std;
 int main(int argc, char** argv) {
 	// Read configs
 	Config config("config.txt");
-	if (config.isConfigExists())
-		cout << "* Read configs successfully. " << endl;
+	if (config.isConfigExists()) {
+		//cout << "* Read configs successfully. " << endl;
+	}
 	else {
 		if (config.createDefaultConfigs()) {
 			cout << "* Failed to create config, abort." << endl;
@@ -32,7 +33,7 @@ int main(int argc, char** argv) {
 	// Read given data file from args
 	string fileName = config.getString("DATA_FILE");
 
-	cout << "* Input file : " << fileName << endl;
+	//cout << "* Input file : " << fileName << endl;
 
 	// Initalize new flash storage
 	Storage* storage = new Storage(&config);
