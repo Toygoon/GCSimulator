@@ -97,7 +97,6 @@ int main(int argc, char** argv) {
 			range[0] = 0;
 			range[1] = storage->totalBlockCount;
 			
-
 			// Input sequence
 			/*cout << endl << "Input range of block (begin end). Last block num : " << storage->totalBlockCount << endl
 				<< "Range >>> ";
@@ -108,8 +107,6 @@ int main(int argc, char** argv) {
 			if (range[0] == range[1])
 				diff++;
 
-			int max = ceil(MAX_ERASURE_LIMIT / ceil((double)readText(fileName).length()
-				/ diff * PAGE_SIZE * MAX_LENGTH));
 				*/
 
 			/*
@@ -118,11 +115,12 @@ int main(int argc, char** argv) {
 				<< "Times >>> ";
 			cin >> times;
 			*/
-			times = 1;
+
+			bool fillFull = true;
 
 			start = clock();
 			// Write text
-			writeText(&storage, times, range, fileName);
+			writeText(&storage, false, range, fileName);
 			cout << endl << "Writing completed. Elasped time : " << (double)((clock() - start) / CLOCKS_PER_SEC) << " seconds." << endl << endl;
 		}
 		else if (input.compare("greedy") == 0) {

@@ -69,6 +69,7 @@ int Config::createDefaultConfigs(void) {
 
 	config.push_back("FLASH_STORAGE_SIZE=1\n");
 	config.push_back("DATA_FILE=data.txt\n");
+	config.push_back("FULL_WRITE=FALSE\n");
 
 	// Config contents
 	/*
