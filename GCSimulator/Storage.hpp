@@ -26,7 +26,6 @@ public:
 
 	Storage(Config*);
 	Storage(const Storage&);
-	~Storage(void);
 	Block* getBlock(int);
 	void setBlock(int, Block*);
 	void printStat(void);
