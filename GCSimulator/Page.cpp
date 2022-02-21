@@ -75,14 +75,15 @@ bool Page::isDisabledPage(void) {
 	return this->isDisabled;
 }
 
-void Page::formatPage(void) {
-	/*
-	this->setData("");
-	this->pageStatus = PageStatus::PAGE_FREE;
-	*/
-
-	// If page is valid, just make it invalid
-	if (this->getPageStatus() == PageStatus::PAGE_VALID)
-		this->pageStatus = PageStatus::PAGE_INVALID;
-
+void Page::formatPage(bool isLowLevel) {
+	if (isLowLevel) {
+		// Low level format : make page free
+		this->setData("");
+		this->pageStatus = PageStatus::PAGE_FREE;
+	}
+	else {
+		// If page is valid, just make it invalid
+		if (this->getPageStatus() != PageStatus::PAGE_FREE)
+			this->pageStatus = PageStatus::PAGE_INVALID;
+	}
 }

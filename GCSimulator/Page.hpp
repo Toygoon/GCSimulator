@@ -41,7 +41,7 @@ public:
 	double getAccessTime(void);
 	PageStatus getPageStatus(void);
 	bool isDisabledPage(void);
-	void formatPage(void);
+	void formatPage(bool);
 };
 
 #endif

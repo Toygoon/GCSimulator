@@ -74,16 +74,9 @@ void Storage::printStat(void) {
 }
 
 void Storage::formatData(int start, int end) {
-	/*
-	if (start > PAGES_PER_BLOCK || end > PAGES_PER_BLOCK || start < 0 || end < 0) {
-		cout << "Parameter error; formatData(" << start << ", " << end << ")" << endl;
-		return;
-	}
-	*/
-
 	// The block of start <= _RANGE_ <= end will be deleted
 	// Just deletes all data, and make all cells free
 	for (int i = start; i <= end; i++)
 		for (int j = 0; j < PAGES_PER_BLOCK; j++)
-			this->getBlock(i)->getPage()[j].formatPage();
+			this->getBlock(i)->getPage()[j].formatPage(false);
 }
