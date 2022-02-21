@@ -48,16 +48,6 @@ string getString(string s, int a) {
 }
 
 void writeText(Storage** s, bool fillFull, int* range, string fileName) {
-	// Valid status check
-	/*
-	for (int i = range[0]; i <= range[1]; i++) {
-		if ((*s)->getBlock(i)->hasInvalidPage()) {
-			cout << "Block " << i << " has an invalid page. Do the gc first." << endl;
-			return;
-		}
-	}
-	*/
-
 	// Read data
 	string data = "", tmp;
 
@@ -89,15 +79,19 @@ void writeText(Storage** s, bool fillFull, int* range, string fileName) {
 	// Write texts (with pages)
 	for (int currentBlock = range[0]; currentBlock <= range[1]; currentBlock++) {
 		for (int currentPage = 0; currentPage < PAGES_PER_BLOCK; currentPage++) {
+			// For percentage; current position divided by total length
 			pertmp = (currentPos + 1.0) / (data.length() + 1.0) * 100;
 			if ((int)pertmp != percent) {
+				// Update when decimal part is increased
 				percent++;
 				bar.update();
 			}
 
+			// Break point
 			if (isDone)
 				break;
 
+			// When total length exceeded
 			if (currentPos + MAX_LENGTH > data.length()) {
 				tmp = data.substr(currentPos);
 				isDone = true;
@@ -107,7 +101,13 @@ void writeText(Storage** s, bool fillFull, int* range, string fileName) {
 				currentPos += MAX_LENGTH;
 			}
 
-			(*s)->getBlock(currentBlock)->getPage()[currentPage].setData(tmp);
+			// Check block status before final writing
+			if ((*s)->getBlock(currentBlock)->getPage()[currentPage].getPageStatus() == PageStatus::PAGE_FREE)
+				(*s)->getBlock(currentBlock)->getPage()[currentPage].setData(tmp);
+			else {
+				cout << "There's invalid pages or block, please do the gc first." << endl << endl;
+				return;
+			}
 		}
 
 		if (isDone)
