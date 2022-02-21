@@ -86,19 +86,40 @@ void Greedy::calcFreeSpace(Storage* s) {
 }
 
 void Greedy::cleanAllInvalids(Storage** s) {
+	int count = 0;
 	// Format data if a block has only invalid pages
 	for (int i = 0; i < this->invalids.size(); i++) {
-		if (invalids.at(i).second == 1)
-			(*s)->formatData(invalids.at(i).first, invalids.at(i).first);
+		// RAW level format, format only 100 percent
+		if (this->invalids.at(i).second == 100) {
+			count++;
+			for (int j = 0; j < PAGES_PER_BLOCK; j++) {
+				(*s)->getBlock(this->invalids[i].first)->getPage()[j].setData("");
+				(*s)->getBlock(this->invalids[i].first)->getPage()[j].setPageStatus(PageStatus::PAGE_FREE);
+			}
+		}
 	}
+
+	cout << "Invalid " << count << " blocks cleaned" << endl;
 }
 
 /* In-place-update() algorithms
 ** in Cleaning policies in mobile computers using flash memory */
 void Greedy::greedyMain(Storage** s) {
+	// Calculate free spaces
 	this->calcFreeSpace(*s);
 
+	/* Select a victim segment for cleaning;
+	** Identify valid data in the segment; */
 	this->calcVictims(*s);
 
-	cout << this->invalids.size() << endl;
+	// Calculate free spaces
+	this->calcFreeSpace(*s);
+
+	// Check the page has enough blocks
+	if (freeBlocks.size() == 0) {
+		cout << "There's no free blocks in the storage." << endl;
+		return;
+	}
+
+	this->cleanAllInvalids(s);
 }

@@ -44,7 +44,8 @@ int main(int argc, char** argv) {
 	int block = -1, page = -1;
 	system("cls");
 
-	cout << "* Operations : status, read, write, reset, format, gc, exit" << endl << endl;
+	cout << "* Operations : status, read, write, reset, format, exit" << endl
+		<< "* Garbage Collectors : greedy" << endl << endl;
 
 	while (true) {
 		cout << ">>> ";
