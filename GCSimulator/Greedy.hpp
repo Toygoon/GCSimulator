@@ -16,6 +16,11 @@ using namespace std;
 
 class Greedy {
 private:
+	/* PAGE_STAT : tuple<blockNum, PageStatus, number of pageStatus>
+	* pageStats : vector that saves PAGE_STAT */
+	typedef tuple<int, PageStatus, int> PAGE_STAT;
+	vector<PAGE_STAT> pageStats;
+
 	// The block number that all pages are free status
 	// vector's tuple structure : <blockNum, total eraseCount>
 	// To sort the eraseCount, the data will be saved into tuple structure
@@ -38,8 +43,7 @@ private:
 	void calcFreeSpace(Storage*);
 	void cleanAllInvalids(Storage**);
 public:
-	Greedy();
-	~Greedy();
+	Greedy(Storage**);
 	void greedyMain(Storage**);
 };
 

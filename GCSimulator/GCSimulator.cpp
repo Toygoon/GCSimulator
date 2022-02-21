@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
 			cout << endl << "Writing completed. Elasped time : " << (double)((clock() - start) / CLOCKS_PER_SEC) << " seconds." << endl << endl;
 		}
 		else if (input.compare("greedy") == 0) {
-			Greedy* g = new Greedy();
+			Greedy* g = new Greedy(&storage);
 			g->greedyMain(&storage);
 		}
 		else if (input.compare("format") == 0) {

@@ -22,7 +22,6 @@ private:
 	*/
 	int blockNum;
 	Page* block;
-
 public:
 	Block(int);
 	~Block(void);

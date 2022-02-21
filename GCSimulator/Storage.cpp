@@ -48,6 +48,7 @@ void Storage::printStat(void) {
 		<< "* Total pages : " << this->totalPageCount << " Pages" << endl
 		<< "* Max erasure limit : " << MAX_ERASURE_LIMIT << " times" << endl;
 
+
 	int pageCurrentStatus[3] = { 0, 0, 0 };
 
 	for (int i = 0; i < this->totalBlockCount; i++) {
@@ -67,9 +68,9 @@ void Storage::printStat(void) {
 	}
 
 	cout << endl
-		<< "* Valid pages : " << pageCurrentStatus[0] << endl
-		<< "* Invalid pages : " << pageCurrentStatus[1] << endl
-		<< "* Free pages : " << pageCurrentStatus[2] << endl;
+		<< "* Valid blocks : " << ceil((double)pageCurrentStatus[0] / (double)PAGES_PER_BLOCK) << endl
+		<< "* Invalid blocks : " << ceil((double)pageCurrentStatus[1] / (double)PAGES_PER_BLOCK) << endl
+		<< "* Free blocks : " << ceil((double)pageCurrentStatus[2] / (double)PAGES_PER_BLOCK) << endl;
 }
 
 void Storage::formatData(int start, int end) {
